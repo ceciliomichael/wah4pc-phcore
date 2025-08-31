@@ -1,0 +1,77 @@
+{
+  "resourceType": "Medication",
+  "id": "medication-paracetamol-500mg",
+  "meta": {
+    "profile": [
+      "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-medication"
+    ]
+  },
+  "code": {
+    "coding": [
+      {
+        "system": "http://localhost:5072/ph-core/fhir/CodeSystem/drugs",
+        "code": "PARACETAMOL-500MG-TAB",
+        "display": "Paracetamol 500mg Tablet"
+      }
+    ],
+    "text": "Paracetamol 500mg Tablet"
+  },
+  "status": "active",
+  "manufacturer": {
+    "display": "Unilab Philippines"
+  },
+  "form": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "385055001",
+        "display": "Tablet"
+      }
+    ]
+  },
+  "amount": {
+    "numerator": {
+      "value": 500,
+      "unit": "mg",
+      "system": "http://unitsofmeasure.org",
+      "code": "mg"
+    },
+    "denominator": {
+      "value": 1,
+      "unit": "tablet",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+      "code": "TAB"
+    }
+  },
+  "ingredient": [
+    {
+      "itemCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "code": "161",
+            "display": "Acetaminophen"
+          }
+        ]
+      },
+      "strength": {
+        "numerator": {
+          "value": 500,
+          "unit": "mg",
+          "system": "http://unitsofmeasure.org",
+          "code": "mg"
+        },
+        "denominator": {
+          "value": 1,
+          "unit": "tablet",
+          "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+          "code": "TAB"
+        }
+      }
+    }
+  ],
+  "batch": {
+    "lotNumber": "LOT2024001",
+    "expirationDate": "2026-12-31"
+  }
+}

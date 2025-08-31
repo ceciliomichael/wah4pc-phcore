@@ -398,14 +398,44 @@ class FhirValidator:
         """Validate additional structural issues in verbose mode."""
         issues = []
         
-        # Check for invalid fields that shouldn't exist in FHIR resources
+        # Define valid fields for different resource types
+        common_fields = ['resourceType', 'id', 'meta', 'implicitRules', 'language', 
+                        'text', 'contained', 'extension', 'modifierExtension']
+        
+        valid_fields_by_type = {
+            'Patient': common_fields + [
+                'identifier', 'active', 'name', 'telecom', 'gender', 'birthDate',
+                'address', 'maritalStatus', 'multipleBirthBoolean', 'multipleBirthInteger',
+                'photo', 'contact', 'communication', 'generalPractitioner', 'managingOrganization', 'link'
+            ],
+            'Encounter': common_fields + [
+                'identifier', 'status', 'statusHistory', 'class', 'classHistory', 'type',
+                'serviceType', 'priority', 'subject', 'episodeOfCare', 'basedOn', 'participant',
+                'appointment', 'period', 'length', 'reasonCode', 'reasonReference', 'diagnosis',
+                'account', 'hospitalization', 'location', 'serviceProvider'
+            ],
+            'Observation': common_fields + [
+                'identifier', 'basedOn', 'partOf', 'status', 'category', 'code', 'subject',
+                'focus', 'encounter', 'effectiveDateTime', 'effectivePeriod', 'effectiveTiming',
+                'effectiveInstant', 'issued', 'performer', 'valueQuantity', 'valueCodeableConcept',
+                'valueString', 'valueBoolean', 'valueInteger', 'valueRange', 'valueRatio',
+                'valueSampledData', 'valueTime', 'valueDateTime', 'valuePeriod', 'interpretation',
+                'note', 'bodySite', 'method', 'specimen', 'device', 'referenceRange', 'hasMember',
+                'derivedFrom', 'component'
+            ],
+            'Medication': common_fields + [
+                'identifier', 'code', 'status', 'manufacturer', 'form', 'amount', 'ingredient',
+                'batch', 'package'
+            ]
+        }
+        
+        # Get valid fields for this resource type, default to common fields only
+        valid_fields = valid_fields_by_type.get(expected_type, common_fields)
+        
+        # Check for invalid fields
         invalid_fields = []
         for field_name in resource_data.keys():
-            if field_name not in ['resourceType', 'id', 'meta', 'implicitRules', 'language', 
-                                'text', 'contained', 'extension', 'modifierExtension',
-                                'identifier', 'active', 'name', 'telecom', 'gender', 'birthDate',
-                                'address', 'maritalStatus', 'multipleBirthBoolean', 'multipleBirthInteger',
-                                'photo', 'contact', 'communication', 'generalPractitioner', 'managingOrganization', 'link']:
+            if field_name not in valid_fields:
                 invalid_fields.append(field_name)
         
         for field in invalid_fields:
@@ -416,6 +446,20 @@ class FhirValidator:
                 location=f'{expected_type}.{field}'
             ))
         
+        # Resource-specific validation
+        if expected_type == 'Patient':
+            issues.extend(self._validate_patient_specific(resource_data))
+        elif expected_type == 'Encounter':
+            issues.extend(self._validate_encounter_specific(resource_data))
+        elif expected_type == 'Medication':
+            issues.extend(self._validate_medication_specific(resource_data))
+        
+        return issues
+    
+    def _validate_patient_specific(self, resource_data: Dict[str, Any]) -> List[ValidationIssue]:
+        """Validate Patient-specific structural issues."""
+        issues = []
+        
         # Check for invalid data types and formats
         if 'gender' in resource_data:
             gender = resource_data['gender']
@@ -425,7 +469,7 @@ class FhirValidator:
                     severity='error',
                     code='invalid-value',
                     details=f'Invalid gender value: "{gender}". Must be one of: {", ".join(valid_genders)}',
-                    location=f'{expected_type}.gender'
+                    location='Patient.gender'
                 ))
         
         # Check birth date format
@@ -436,7 +480,7 @@ class FhirValidator:
                     severity='error',
                     code='invalid-format',
                     details=f'Invalid birth date format: "{birth_date}". Expected YYYY-MM-DD format',
-                    location=f'{expected_type}.birthDate'
+                    location='Patient.birthDate'
                 ))
         
         # Check telecom format
@@ -452,7 +496,7 @@ class FhirValidator:
                                 severity='error',
                                 code='invalid-value',
                                 details=f'Invalid telecom system: "{system}". Must be one of: {", ".join(valid_systems)}',
-                                location=f'{expected_type}.telecom[{i}].system'
+                                location=f'Patient.telecom[{i}].system'
                             ))
         
         # Check extensions for wrong data types
@@ -468,7 +512,7 @@ class FhirValidator:
                             severity='error',
                             code='wrong-data-type',
                             details='Religion extension should use valueCodeableConcept, not valueString',
-                            location=f'{expected_type}.extension[{i}]'
+                            location=f'Patient.extension[{i}]'
                         ))
                     
                     # Check for educational attainment with wrong type
@@ -477,7 +521,7 @@ class FhirValidator:
                             severity='error',
                             code='wrong-data-type',
                             details='Educational attainment extension should use valueCodeableConcept, not valueBoolean',
-                            location=f'{expected_type}.extension[{i}]'
+                            location=f'Patient.extension[{i}]'
                         ))
                     
                     # Check for invalid extension URLs
@@ -486,7 +530,218 @@ class FhirValidator:
                             severity='error',
                             code='invalid-extension',
                             details=f'Invalid or unauthorized extension URL: {url}',
-                            location=f'{expected_type}.extension[{i}]'
+                            location=f'Patient.extension[{i}]'
+                        ))
+        
+        return issues
+    
+    def _validate_encounter_specific(self, resource_data: Dict[str, Any]) -> List[ValidationIssue]:
+        """Validate Encounter-specific structural issues."""
+        issues = []
+        
+        # Check encounter status
+        if 'status' in resource_data:
+            status = resource_data['status']
+            valid_statuses = ['planned', 'arrived', 'triaged', 'in-progress', 'onleave', 'finished', 'cancelled', 'entered-in-error', 'unknown']
+            if status not in valid_statuses:
+                issues.append(ValidationIssue(
+                    severity='error',
+                    code='invalid-value',
+                    details=f'Invalid encounter status: "{status}". Must be one of: {", ".join(valid_statuses)}',
+                    location='Encounter.status'
+                ))
+        
+        # Check class structure
+        if 'class' in resource_data:
+            encounter_class = resource_data['class']
+            if isinstance(encounter_class, str):
+                issues.append(ValidationIssue(
+                    severity='error',
+                    code='wrong-data-type',
+                    details='Encounter.class should be a Coding object, not a string',
+                    location='Encounter.class'
+                ))
+        
+        # Check type structure
+        if 'type' in resource_data:
+            encounter_type = resource_data['type']
+            if isinstance(encounter_type, str):
+                issues.append(ValidationIssue(
+                    severity='error',
+                    code='wrong-data-type',
+                    details='Encounter.type should be an array of CodeableConcept, not a string',
+                    location='Encounter.type'
+                ))
+        
+        # Check subject structure
+        if 'subject' in resource_data:
+            subject = resource_data['subject']
+            if isinstance(subject, str):
+                issues.append(ValidationIssue(
+                    severity='error',
+                    code='wrong-data-type',
+                    details='Encounter.subject should be a Reference object, not a string',
+                    location='Encounter.subject'
+                ))
+        
+        # Check period dates
+        if 'period' in resource_data:
+            period = resource_data['period']
+            if isinstance(period, dict):
+                for field in ['start', 'end']:
+                    if field in period:
+                        date_value = period[field]
+                        if not self._is_valid_datetime_format(date_value):
+                            issues.append(ValidationIssue(
+                                severity='error',
+                                code='invalid-format',
+                                details=f'Invalid period.{field} format: "{date_value}". Expected ISO 8601 datetime format',
+                                location=f'Encounter.period.{field}'
+                            ))
+        
+        return issues
+    
+    def _validate_medication_specific(self, resource_data: Dict[str, Any]) -> List[ValidationIssue]:
+        """Validate Medication-specific structural issues."""
+        issues = []
+        
+        # Check medication status
+        if 'status' in resource_data:
+            status = resource_data['status']
+            valid_statuses = ['active', 'inactive', 'entered-in-error']
+            if status not in valid_statuses:
+                issues.append(ValidationIssue(
+                    severity='error',
+                    code='invalid-value',
+                    details=f'Invalid medication status: "{status}". Must be one of: {", ".join(valid_statuses)}',
+                    location='Medication.status'
+                ))
+        
+        # Check code structure
+        if 'code' in resource_data:
+            code = resource_data['code']
+            if isinstance(code, str):
+                issues.append(ValidationIssue(
+                    severity='error',
+                    code='wrong-data-type',
+                    details='Medication.code should be a CodeableConcept object, not a string',
+                    location='Medication.code'
+                ))
+        
+        # Check manufacturer structure
+        if 'manufacturer' in resource_data:
+            manufacturer = resource_data['manufacturer']
+            if isinstance(manufacturer, str):
+                issues.append(ValidationIssue(
+                    severity='error',
+                    code='wrong-data-type',
+                    details='Medication.manufacturer should be a Reference object, not a string',
+                    location='Medication.manufacturer'
+                ))
+        
+        # Check form structure
+        if 'form' in resource_data:
+            form = resource_data['form']
+            if isinstance(form, list) and all(isinstance(item, str) for item in form):
+                issues.append(ValidationIssue(
+                    severity='error',
+                    code='wrong-data-type',
+                    details='Medication.form should be a CodeableConcept object, not an array of strings',
+                    location='Medication.form'
+                ))
+        
+        # Check amount structure
+        if 'amount' in resource_data:
+            amount = resource_data['amount']
+            if isinstance(amount, dict):
+                if 'numerator' in amount:
+                    numerator = amount['numerator']
+                    if isinstance(numerator, dict) and 'value' in numerator:
+                        value = numerator['value']
+                        if isinstance(value, str):
+                            issues.append(ValidationIssue(
+                                severity='error',
+                                code='wrong-data-type',
+                                details='Medication.amount.numerator.value should be a number, not a string',
+                                location='Medication.amount.numerator.value'
+                            ))
+                if 'denominator' in amount:
+                    denominator = amount['denominator']
+                    if isinstance(denominator, str):
+                        issues.append(ValidationIssue(
+                            severity='error',
+                            code='wrong-data-type',
+                            details='Medication.amount.denominator should be a Quantity object, not a string',
+                            location='Medication.amount.denominator'
+                        ))
+        
+        # Check ingredient structure
+        if 'ingredient' in resource_data:
+            ingredients = resource_data['ingredient']
+            if isinstance(ingredients, list):
+                for i, ingredient in enumerate(ingredients):
+                    if 'itemString' in ingredient:
+                        issues.append(ValidationIssue(
+                            severity='error',
+                            code='wrong-data-type',
+                            details='Medication ingredient should use itemCodeableConcept, not itemString',
+                            location=f'Medication.ingredient[{i}]'
+                        ))
+                    
+                    if 'strength' in ingredient:
+                        strength = ingredient['strength']
+                        if isinstance(strength, str):
+                            issues.append(ValidationIssue(
+                                severity='error',
+                                code='wrong-data-type',
+                                details='Medication ingredient strength should be a Ratio object, not a string',
+                                location=f'Medication.ingredient[{i}].strength'
+                            ))
+                        elif isinstance(strength, dict):
+                            if 'numerator' in strength:
+                                numerator = strength['numerator']
+                                if isinstance(numerator, dict) and 'value' in numerator:
+                                    value = numerator['value']
+                                    if isinstance(value, str) or (isinstance(value, (int, float)) and value < 0):
+                                        issues.append(ValidationIssue(
+                                            severity='error',
+                                            code='invalid-value',
+                                            details=f'Invalid strength numerator value: "{value}". Must be a positive number',
+                                            location=f'Medication.ingredient[{i}].strength.numerator.value'
+                                        ))
+                            if 'denominator' in strength:
+                                denominator = strength['denominator']
+                                if isinstance(denominator, dict) and 'value' in denominator:
+                                    value = denominator['value']
+                                    if isinstance(value, str):
+                                        issues.append(ValidationIssue(
+                                            severity='error',
+                                            code='wrong-data-type',
+                                            details='Medication ingredient strength denominator value should be a number, not a string',
+                                            location=f'Medication.ingredient[{i}].strength.denominator.value'
+                                        ))
+        
+        # Check batch structure
+        if 'batch' in resource_data:
+            batch = resource_data['batch']
+            if isinstance(batch, dict):
+                if 'lotNumber' in batch:
+                    lot_number = batch['lotNumber']
+                    if not isinstance(lot_number, str):
+                        issues.append(ValidationIssue(
+                            severity='error',
+                            code='wrong-data-type',
+                            details=f'Medication batch lotNumber should be a string, not {type(lot_number).__name__}',
+                            location='Medication.batch.lotNumber'
+                        ))
+                if 'expirationDate' in batch:
+                    expiration_date = batch['expirationDate']
+                    if not isinstance(expiration_date, str) or not self._is_valid_date_format(expiration_date):
+                        issues.append(ValidationIssue(
+                            severity='error',
+                            code='invalid-format',
+                            details=f'Invalid expiration date format: "{expiration_date}". Expected YYYY-MM-DD format',
+                            location='Medication.batch.expirationDate'
                         ))
         
         return issues
@@ -510,6 +765,16 @@ class FhirValidator:
                     return True
                 except ValueError:
                     return False
+        
+    def _is_valid_datetime_format(self, date_str: str) -> bool:
+        """Check if a string is in valid FHIR datetime format (YYYY-MM-DDThh:mm:ss.sss+zz:zz)."""
+        try:
+            from datetime import datetime
+            # Try to parse as YYYY-MM-DDThh:mm:ss.sss+zz:zz
+            datetime.fromisoformat(date_str)
+            return True
+        except ValueError:
+            return False
         
     def get_available_profiles(self) -> List[str]:
         """Get list of available StructureDefinition URLs."""

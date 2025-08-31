@@ -1,0 +1,67 @@
+{
+  "resourceType": "Observation",
+  "id": "observation-invalid-example",
+  "meta": {
+    "profile": [
+      "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-observation"
+    ]
+  },
+  "status": "invalid-status-code",
+  "category": "Should be an array not a string",
+  "code": "Missing coding array - should be CodeableConcept",
+  "subject": "Should be Reference object not string",
+  "encounter": {
+    "display": "Missing reference field"
+  },
+  "effectiveDateTime": "invalid-datetime-format",
+  "issued": "2024-25-99T30:99:99+99:99",
+  "performer": "Should be array not string",
+  "valueQuantity": {
+    "value": "Should be number not string",
+    "unit": 123,
+    "system": "http://unitsofmeasure.org",
+    "code": "mm[Hg]"
+  },
+  "component": [
+    {
+      "code": {
+        "text": "Missing coding array"
+      },
+      "valueQuantity": {
+        "value": -999,
+        "unit": "invalid-unit",
+        "system": "http://wrong-system.com",
+        "code": "INVALID_CODE"
+      }
+    },
+    {
+      "valueString": "Component missing code field"
+    }
+  ],
+  "interpretation": [
+    {
+      "coding": [
+        {
+          "system": "http://wrong-interpretation-system.com",
+          "code": "INVALID_INTERPRETATION",
+          "display": "Invalid interpretation code"
+        }
+      ]
+    }
+  ],
+  "note": "Should be array not string",
+  "device": [
+    "Should be Reference object not array of strings"
+  ],
+  "invalidObservationField": "This field should not exist",
+  "anotherInvalidField": {
+    "nested": "Invalid nested object"
+  },
+  "referenceRange": [
+    {
+      "low": "Should be Quantity not string",
+      "high": "Should be Quantity not string",
+      "type": "Missing CodeableConcept structure"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "resourceType": "Medication",
+  "id": "medication-invalid-example",
+  "meta": {
+    "profile": [
+      "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-medication"
+    ]
+  },
+  "code": "Should be CodeableConcept not string",
+  "status": "invalid-medication-status",
+  "manufacturer": "Should be Reference object not string",
+  "form": [
+    "Should be CodeableConcept not array of strings"
+  ],
+  "amount": {
+    "numerator": {
+      "value": "Should be number not string",
+      "unit": 12345,
+      "system": "http://wrong-system.com",
+      "code": "INVALID_UNIT"
+    },
+    "denominator": "Should be Quantity object not string"
+  },
+  "ingredient": [
+    {
+      "itemString": "Should use itemCodeableConcept not itemString",
+      "strength": {
+        "numerator": {
+          "value": -500,
+          "unit": "invalid-unit-type",
+          "system": "http://unitsofmeasure.org",
+          "code": "NONEXISTENT_CODE"
+        },
+        "denominator": {
+          "value": "zero",
+          "unit": "tablet"
+        }
+      }
+    },
+    {
+      "strength": "Missing item field - should have itemCodeableConcept"
+    }
+  ],
+  "batch": {
+    "lotNumber": 123456,
+    "expirationDate": "invalid-date-format"
+  },
+  "invalidMedicationField": "This field should not exist in Medication resource",
+  "anotherInvalidField": {
+    "nested": {
+      "invalid": "structure"
+    }
+  },
+  "package": {
+    "type": "Should be CodeableConcept not string",
+    "quantity": "Should be Quantity not string",
+    "material": [
+      {
+        "text": "Missing coding array"
+      }
+    ]
+  }
+}
