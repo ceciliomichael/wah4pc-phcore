@@ -23,7 +23,7 @@ class FhirResource:
 class ResourceLoader:
     """Loads and manages FHIR resources from the resources directory."""
     
-    def __init__(self, resources_dir: str = "resources", base_resources_dir: str = "fhir_base_resources"):
+    def __init__(self, resources_dir: str = "resources/phcore", base_resources_dir: str = "resources/fhir_base"):
         self.resources_dir = Path(resources_dir)
         self.base_resources_dir = Path(base_resources_dir)
         self.resources: Dict[str, FhirResource] = {}

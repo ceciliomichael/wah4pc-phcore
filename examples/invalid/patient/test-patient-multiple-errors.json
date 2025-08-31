@@ -1,0 +1,195 @@
+{
+  "resourceType": "Patient",
+  "id": "test-patient-invalid",
+  "meta": {
+    "profile": [
+      "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-patient"
+    ]
+  },
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-nationality",
+      "extension": [
+        {
+          "url": "code",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "urn:iso:std:iso:3166",
+                "code": "INVALID_COUNTRY",
+                "display": "Invalid Country"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-religion",
+      "valueString": "This should be CodeableConcept not string"
+    },
+    {
+      "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/indigenous-group",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://localhost:5072/ph-core/fhir/CodeSystem/indigenous-groups",
+            "code": "NONEXISTENT_GROUP",
+            "display": "Non-existent Indigenous Group"
+          }
+        ]
+      }
+    },
+    {
+      "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/occupation",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSOC",
+            "code": "99999",
+            "display": "Invalid Occupation Code"
+          }
+        ]
+      }
+    },
+    {
+      "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/educational-attainment",
+      "valueBoolean": true
+    },
+    {
+      "url": "http://invalid-extension-url/not-allowed",
+      "valueString": "This extension is not allowed"
+    }
+  ],
+  "identifier": [
+    {
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "INVALID_TYPE",
+            "display": "Invalid Identifier Type"
+          }
+        ]
+      },
+      "system": "http://philhealth.gov.ph/fhir/Identifier/philhealth-id",
+      "value": "INVALID-FORMAT-123"
+    },
+    {
+      "system": "http://doh.gov.ph/fhir/Identifier/pdd-registration"
+    },
+    {
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "NH"
+          }
+        ]
+      },
+      "system": "http://wrong-system.com/identifier",
+      "value": "12345"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official"
+    }
+  ],
+  "telecom": [
+    {
+      "system": "invalid-system",
+      "value": "not-a-valid-phone",
+      "use": "mobile"
+    }
+  ],
+  "gender": "unknown-gender",
+  "birthDate": "invalid-date-format",
+  "address": [
+    {
+      "use": "home",
+      "type": "physical",
+      "line": [
+        "123 Test Street"
+      ],
+      "city": "Test City",
+      "country": "INVALID_COUNTRY_CODE",
+      "extension": [
+        {
+          "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/region",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+                "code": "999999999",
+                "display": "Invalid Region Code"
+              }
+            ]
+          }
+        },
+        {
+          "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/province",
+          "valueString": "Should be CodeableConcept not string"
+        },
+        {
+          "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/barangay",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "wrong-system",
+                "code": "INVALID",
+                "display": "Wrong System"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "maritalStatus": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/ValueSet/marital-status",
+        "code": "INVALID_STATUS",
+        "display": "Invalid Marital Status"
+      }
+    ]
+  },
+  "contact": [
+    {
+      "relationship": [
+        {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/ValueSet/relatedperson-relationshiptype",
+              "code": "INVALID_RELATIONSHIP",
+              "display": "Invalid Relationship"
+            }
+          ]
+        }
+      ],
+      "telecom": [
+        {
+          "system": "phone",
+          "value": "+63-invalid-phone-format"
+        }
+      ]
+    }
+  ],
+  "communication": [
+    {
+      "language": {
+        "coding": [
+          {
+            "system": "urn:ietf:bcp:47",
+            "code": "invalid-lang-code",
+            "display": "Invalid Language"
+          }
+        ]
+      }
+    }
+  ],
+  "invalidField": "This field should not exist in Patient resource",
+  "anotherInvalidField": 12345
+}
