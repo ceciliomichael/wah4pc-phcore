@@ -74,14 +74,20 @@ The server will start on `http://localhost:5072`
 
 ### Using the CLI Client
 ```bash
-# Validate a FHIR resource
+# Validate a FHIR resource (fast feedback - shows first critical error)
 python client.py validate examples/valid/patient/patient_from_hospital_emr.json
+
+# Validate with comprehensive error reporting (shows ALL validation issues)
+python client.py validate examples/invalid/patient/test-patient-multiple-errors.json --verbose
 
 # List available profiles
 python client.py profiles
 
 # Get a specific resource
 python client.py resource StructureDefinition ph-core-patient
+
+# Run built-in validation tests
+python client.py test
 ```
 
 ### Using curl
@@ -135,11 +141,23 @@ Utility scripts for project maintenance:
 
 ## 🔍 Validation Features
 
+### Dual Validation Modes
+- ✅ **Regular Mode** - Fast feedback with first critical error (PHCore priority)
+- ✅ **Verbose Mode** (`--verbose`) - Comprehensive analysis showing ALL validation issues
+- ✅ **Smart Prioritization** - PHCore compliance issues identified first
+
 ### PHCore Profile Validation
 - ✅ Structure definition compliance checking
 - ✅ Extension slice validation with cardinality enforcement
 - ✅ Required field validation
 - ✅ Data type and format validation
+
+### Comprehensive Structural Validation (Verbose Mode)
+- ✅ Invalid field detection (fields not allowed in FHIR resources)
+- ✅ Wrong data type identification (string vs CodeableConcept, etc.)
+- ✅ Format validation (dates, phone numbers, identifiers)
+- ✅ Value validation (gender, telecom systems, etc.)
+- ✅ Extension URL authorization checking
 
 ### Terminology Validation
 - ✅ ValueSet binding validation
@@ -150,6 +168,7 @@ Utility scripts for project maintenance:
 - ✅ Detailed OperationOutcome responses
 - ✅ Specific error locations and descriptions
 - ✅ Severity levels (error, warning, information)
+- ✅ Mode-aware reporting (focused vs comprehensive)
 
 ## 🌐 Interoperability
 
