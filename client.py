@@ -11,6 +11,7 @@ from typing import Dict, Any, Optional
 import urllib.request
 import urllib.parse
 import urllib.error
+import requests
 
 
 class FhirValidationClient:
@@ -19,30 +20,37 @@ class FhirValidationClient:
     def __init__(self, base_url: str = "http://localhost:5072"):
         self.base_url = base_url.rstrip('/')
         
-    def validate_resource(self, resource_data: Dict[str, Any], profile_url: Optional[str] = None) -> Dict[str, Any]:
-        """Validate a FHIR resource."""
-        validation_request = {
-            "resource": resource_data,
-            "profile": profile_url
-        }
-        
-        url = f"{self.base_url}/ph-core/fhir/$validate"
-        
+    def validate_resource(self, resource_data: Dict[str, Any], verbose: bool = False) -> Dict[str, Any]:
+        """Validate a FHIR resource against PHCore profiles."""
         try:
-            data = json.dumps(validation_request).encode('utf-8')
-            req = urllib.request.Request(
-                url,
-                data=data,
-                headers={'Content-Type': 'application/json'}
+            if verbose:
+                # Send verbose validation request
+                payload = {
+                    "resource": resource_data,
+                    "verbose": True
+                }
+            else:
+                # Send regular validation request
+                payload = resource_data
+                
+            response = requests.post(
+                f"{self.base_url}/ph-core/fhir/$validate",
+                json=payload,
+                headers={"Content-Type": "application/json"}
             )
             
-            with urllib.request.urlopen(req) as response:
-                return json.loads(response.read().decode('utf-8'))
-                
-        except urllib.error.HTTPError as e:
-            error_data = json.loads(e.read().decode('utf-8'))
-            return error_data
-        except Exception as e:
+            if response.status_code == 200:
+                return response.json()
+            else:
+                return {
+                    "resourceType": "OperationOutcome",
+                    "issue": [{
+                        "severity": "error",
+                        "code": "http-error",
+                        "details": {"text": f"HTTP {response.status_code}: {response.text}"}
+                    }]
+                }
+        except requests.exceptions.RequestException as e:
             return {
                 "resourceType": "OperationOutcome",
                 "issue": [{
@@ -74,67 +82,95 @@ class FhirValidationClient:
 
 
 def main():
-    """Main CLI function."""
+    """Main CLI interface."""
     if len(sys.argv) < 2:
-        print("Usage:")
-        print("  python client.py validate <resource_file> [profile_url]")
-        print("  python client.py profiles")
-        print("  python client.py resource <type> <id>")
-        print("  python client.py test")
+        print("Usage: python client.py <command> [args...]")
+        print("Commands:")
+        print("  validate <file.json> [--verbose]  - Validate a FHIR resource")
+        print("  profiles                          - List available profiles")
+        print("  resource <type> <id>             - Get a specific resource")
+        print("  test                             - Run validation tests")
         return
-        
+    
     client = FhirValidationClient()
     command = sys.argv[1]
     
     if command == "validate":
         if len(sys.argv) < 3:
-            print("Error: Resource file required")
+            print("Usage: python client.py validate <file.json> [--verbose]")
             return
-            
-        resource_file = sys.argv[2]
-        profile_url = sys.argv[3] if len(sys.argv) > 3 else None
+        
+        file_path = sys.argv[2]
+        verbose = "--verbose" in sys.argv
         
         try:
-            with open(resource_file, 'r') as f:
+            with open(file_path, 'r', encoding='utf-8') as f:
                 resource_data = json.load(f)
-                
-            result = client.validate_resource(resource_data, profile_url)
+            
+            print(f"🔍 Validating {file_path}{'(verbose mode)' if verbose else ''}...")
+            result = client.validate_resource(resource_data, verbose=verbose)
+            
             print(json.dumps(result, indent=2))
             
+        except FileNotFoundError:
+            print(f"❌ File not found: {file_path}")
+        except json.JSONDecodeError as e:
+            print(f"❌ Invalid JSON in {file_path}: {e}")
         except Exception as e:
-            print(f"Error: {e}")
-            
+            print(f"❌ Error: {e}")
+    
     elif command == "profiles":
         result = client.get_profiles()
-        print(json.dumps(result, indent=2))
-        
+        if 'profiles' in result:
+            print("📋 Available PHCore Profiles:")
+            for profile in result['profiles']:
+                print(f"  - {profile}")
+        else:
+            print(json.dumps(result, indent=2))
+    
     elif command == "resource":
         if len(sys.argv) < 4:
-            print("Error: Resource type and ID required")
+            print("Usage: python client.py resource <type> <id>")
             return
-            
+        
         resource_type = sys.argv[2]
         resource_id = sys.argv[3]
         
         result = client.get_resource(resource_type, resource_id)
         print(json.dumps(result, indent=2))
-        
+    
     elif command == "test":
-        # Test with example patient
-        print("🧪 Testing validation with example patient...")
+        print("🧪 Running validation tests...")
         
+        # Test valid patient
         try:
-            result = client.get_resource("Patient", "example-patient")
-            if "error" not in result:
-                validation_result = client.validate_resource(result)
-                print("✅ Validation completed!")
-                print(json.dumps(validation_result, indent=2))
-            else:
-                print(f"❌ Error getting example patient: {result['error']}")
-        except Exception as e:
-            print(f"❌ Test failed: {e}")
+            with open('examples/valid/patient/patient_from_hospital_emr.json', 'r') as f:
+                valid_patient = json.load(f)
+            
+            print("\n✅ Testing valid patient...")
+            result = client.validate_resource(valid_patient)
+            is_valid = not any(issue.get('severity') == 'error' for issue in result.get('issue', []))
+            print(f"Result: {'✅ VALID' if is_valid else '❌ INVALID'}")
+            
+        except FileNotFoundError:
+            print("❌ Valid patient example not found")
+        
+        # Test invalid patient
+        try:
+            with open('examples/invalid/patient/patient_missing_extension.json', 'r') as f:
+                invalid_patient = json.load(f)
+            
+            print("\n❌ Testing invalid patient...")
+            result = client.validate_resource(invalid_patient)
+            is_valid = not any(issue.get('severity') == 'error' for issue in result.get('issue', []))
+            print(f"Result: {'✅ VALID' if is_valid else '❌ INVALID (as expected)'}")
+            
+        except FileNotFoundError:
+            print("❌ Invalid patient example not found")
+    
     else:
-        print(f"Unknown command: {command}")
+        print(f"❌ Unknown command: {command}")
+        print("Available commands: validate, profiles, resource, test")
 
 
 if __name__ == "__main__":

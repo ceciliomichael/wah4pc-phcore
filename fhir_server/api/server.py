@@ -5,7 +5,7 @@ FastAPI server providing FHIR REST endpoints and validation services.
 
 import json
 import os
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, Union
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request, Response
@@ -17,9 +17,28 @@ from fhir_server.validation.validator import FhirValidator, ValidationResult
 
 
 class ValidationRequest(BaseModel):
-    """Request model for resource validation."""
+    """Request model for FHIR resource validation."""
+    resourceType: str
+    id: Optional[str] = None
+    meta: Optional[Dict[str, Any]] = None
+    # Allow any additional fields for the FHIR resource
+    class Config:
+        extra = "allow"
+        
+    def dict(self, **kwargs):
+        """Override dict to include all extra fields."""
+        d = super().dict(**kwargs)
+        # Add any extra fields that were set
+        for key, value in self.__dict__.items():
+            if key not in d and not key.startswith('_'):
+                d[key] = value
+        return d
+
+
+class VerboseValidationRequest(BaseModel):
+    """Request model for verbose FHIR resource validation."""
     resource: Dict[str, Any]
-    profile: Optional[str] = None
+    verbose: bool = False
 
 
 class FhirServer:
@@ -86,24 +105,46 @@ class FhirServer:
             return await root()
             
         @self.app.post("/ph-core/fhir/$validate")
-        async def validate_resource(request: ValidationRequest):
-            """Validate a FHIR resource."""
+        async def validate_resource(request: Union[ValidationRequest, Dict[str, Any]]):
+            """Validate a FHIR resource against PHCore profiles."""
             try:
-                result = self.validator.validate_resource(
-                    request.resource, 
-                    request.profile
-                )
+                # Handle different request formats
+                if isinstance(request, dict):
+                    # Check if this is a verbose request
+                    if 'resource' in request and 'verbose' in request:
+                        resource_data = request['resource']
+                        verbose = request.get('verbose', False)
+                    else:
+                        # Regular resource validation
+                        resource_data = request
+                        verbose = False
+                else:
+                    # Pydantic model
+                    if hasattr(request, 'resource'):
+                        # VerboseValidationRequest
+                        resource_data = request.resource
+                        verbose = getattr(request, 'verbose', False)
+                    else:
+                        # ValidationRequest
+                        resource_data = request.dict()
+                        verbose = False
                 
-                # Convert to FHIR OperationOutcome format
-                outcome = self._create_operation_outcome(result)
+                # Perform validation
+                result = self.validator.validate_resource(resource_data, verbose=verbose)
                 
-                return JSONResponse(
-                    content=outcome,
-                    status_code=200 if result.is_valid else 400
-                )
+                # Create OperationOutcome
+                return self._create_operation_outcome(result)
                 
             except Exception as e:
-                raise HTTPException(status_code=500, detail=str(e))
+                # Return error OperationOutcome
+                return {
+                    "resourceType": "OperationOutcome",
+                    "issue": [{
+                        "severity": "error",
+                        "code": "exception",
+                        "details": {"text": str(e)}
+                    }]
+                }
                 
         @self.app.get("/ph-core/fhir/profiles")
         async def list_profiles():

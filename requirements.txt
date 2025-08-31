@@ -3,3 +3,4 @@ uvicorn
 pydantic
 jsonschema
 python-multipart
+requests
