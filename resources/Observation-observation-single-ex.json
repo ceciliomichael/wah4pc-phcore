@@ -1,0 +1,141 @@
+{
+  "resourceType": "Observation",
+  "id": "observation-single-ex",
+  "meta": {
+    "profile": [
+      "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-observation",
+      "http://hl7.org/fhir/StructureDefinition/vitalsigns",
+      "http://hl7.org/fhir/StructureDefinition/bp"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "urn:ietf:rfc:3986",
+      "value": "urn:uuid:187e0c12-8dd2-67e2-99b2-bf273c878281"
+    }
+  ],
+  "basedOn": [
+    {
+      "identifier": {
+        "system": "https://acme.org/identifiers",
+        "value": "1234"
+      }
+    }
+  ],
+  "category": [
+    {
+      "coding": [
+        {
+          "code": "vital-signs",
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "display": "Vital Signs"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "code": "85354-9",
+        "system": "http://loinc.org",
+        "display": "Blood pressure panel with all children optional"
+      }
+    ],
+    "text": "Blood pressure systolic & diastolic"
+  },
+  "performer": [
+    {
+      "reference": "Practitioner/practitioner-single-ex"
+    }
+  ],
+  "interpretation": [
+    {
+      "coding": [
+        {
+          "code": "L",
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+          "display": "Low"
+        }
+      ],
+      "text": "Below low normal"
+    }
+  ],
+  "component": [
+    {
+      "interpretation": [
+        {
+          "coding": [
+            {
+              "code": "N",
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+              "display": "Normal"
+            }
+          ],
+          "text": "Normal"
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "code": "8480-6",
+            "system": "http://loinc.org",
+            "display": "Systolic blood pressure"
+          }
+        ]
+      },
+      "valueQuantity": {
+        "value": 107,
+        "code": "mm[Hg]",
+        "system": "http://unitsofmeasure.org",
+        "unit": "mmHg"
+      }
+    },
+    {
+      "interpretation": [
+        {
+          "coding": [
+            {
+              "code": "L",
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+              "display": "Low"
+            }
+          ],
+          "text": "Below low normal"
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "code": "8462-4",
+            "system": "http://loinc.org",
+            "display": "Diastolic blood pressure"
+          }
+        ]
+      },
+      "valueQuantity": {
+        "value": 60,
+        "code": "mm[Hg]",
+        "system": "http://unitsofmeasure.org",
+        "unit": "mmHg"
+      }
+    }
+  ],
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">On 17 September 2012, a blood pressure observation was recorded for Juan Dela Cruz. The systolic pressure was 107 mmHg (Normal), and the diastolic pressure was 60 mmHg (Below low normal). The measurement was taken from the right arm and performed by a practitioner.</div>"
+  },
+  "status": "final",
+  "subject": {
+    "reference": "Patient/patient-single-ex"
+  },
+  "effectiveDateTime": "2012-09-17",
+  "bodySite": {
+    "coding": [
+      {
+        "code": "368209003",
+        "system": "http://snomed.info/sct",
+        "display": "Right arm"
+      }
+    ]
+  }
+}

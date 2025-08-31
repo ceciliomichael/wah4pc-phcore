@@ -1,0 +1,31 @@
+{
+  "resourceType": "ValueSet",
+  "status": "draft",
+  "name": "Regions",
+  "id": "regions",
+  "title": "Regions",
+  "description": "The Region codes valueset includes all region values from the Philippine Standard Geographic Codes (PSGC) published by the Philippine Statistic Authority (PSA).",
+  "url": "http://localhost:5072/ph-core/fhir/ValueSet/regions",
+  "experimental": true,
+  "compose": {
+    "include": [
+      {
+        "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+        "concept": [
+          {
+            "code": "0102800000",
+            "display": "Ilocos Norte"
+          },
+          {
+            "code": "0102900000",
+            "display": "Ilocos Sur"
+          },
+          {
+            "code": "0103300000",
+            "display": "La Union"
+          }
+        ]
+      }
+    ]
+  }
+}

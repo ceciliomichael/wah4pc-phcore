@@ -1,0 +1,43 @@
+{
+  "resourceType": "ValueSet",
+  "status": "draft",
+  "name": "Provinces",
+  "id": "provinces",
+  "title": "Provinces",
+  "description": "All province values from the Philippine Standard Geographic Codes (PSGC) published by the Philippine Statistic Authority (PSA).",
+  "url": "http://localhost:5072/ph-core/fhir/ValueSet/provinces",
+  "experimental": true,
+  "compose": {
+    "include": [
+      {
+        "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+        "concept": [
+          {
+            "code": "0402100000",
+            "display": "Cavite"
+          },
+          {
+            "code": "0403400000",
+            "display": "Laguna"
+          },
+          {
+            "code": "0405600000",
+            "display": "Quezon"
+          },
+          {
+            "code": "0405800000",
+            "display": "Rizal"
+          },
+          {
+            "code": "1704000000",
+            "display": "Marinduque"
+          },
+          {
+            "code": "1705100000",
+            "display": "Occidental Mindoro"
+          }
+        ]
+      }
+    ]
+  }
+}

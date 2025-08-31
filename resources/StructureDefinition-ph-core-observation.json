@@ -1,0 +1,43 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "ph-core-observation",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-observation",
+  "name": "PHCoreObservation",
+  "title": "PH Core Observation",
+  "status": "draft",
+  "description": "Measurements and simple assertions made about a patient, device or other subject.",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Observation",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Observation.subject",
+        "path": "Observation.subject",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-patient"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Observation.encounter",
+        "path": "Observation.encounter",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-encounter"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

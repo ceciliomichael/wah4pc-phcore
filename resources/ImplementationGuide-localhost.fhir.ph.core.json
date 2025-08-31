@@ -1,0 +1,564 @@
+{
+  "resourceType": "ImplementationGuide",
+  "id": "localhost.fhir.ph.core",
+  "language": "en",
+  "url": "http://localhost:5072/ph-core/fhir/ImplementationGuide/localhost.fhir.ph.core",
+  "version": "0.1.0",
+  "name": "PHCoreImplementationGuide",
+  "title": "PH Core Implementation Guide",
+  "status": "draft",
+  "publisher": "UP Manila SILab",
+  "contact": [
+    {
+      "name": "UP Manila SILab",
+      "telecom": [
+        {
+          "system": "url",
+          "value": "https://github.com/UP-Manila-SILab"
+        }
+      ]
+    }
+  ],
+  "description": "This implementation guide is provided to support the use of FHIR®© in an Philippines context, and defines the minimum set of constraints on the FHIR resources to create the PH Core profiles. This implementation guide forms the foundation to build future PH Realm FHIR implementation guides and its content will continue to grow to meet the needs of PH implementers.",
+  "jurisdiction": [
+    {
+      "coding": [
+        {
+          "code": "PH",
+          "system": "urn:iso:std:iso:3166",
+          "display": "Philippines"
+        }
+      ]
+    }
+  ],
+  "packageId": "localhost.fhir.ph.core",
+  "license": "CC-BY-1.0",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "dependsOn": [
+    {
+      "packageId": "hl7.fhir.uv.extensions.r4",
+      "version": "1.0.0",
+      "uri": "http://hl7.org/fhir/extensions/ImplementationGuide/hl7.fhir.uv.extensions",
+      "id": "hl7_fhir_uv_extensions_r4"
+    },
+    {
+      "packageId": "hl7.terminology.r4",
+      "version": "current",
+      "uri": "http://terminology.hl7.org",
+      "id": "hl7_terminology_r4"
+    }
+  ],
+  "definition": {
+    "resource": [
+      {
+        "reference": {
+          "reference": "AllergyIntolerance/allergy-single-ex"
+        },
+        "name": "allergy-single-ex",
+        "description": "Juan Dela Cruz has a high criticality, active allergy to Benethamine penicillin.",
+        "exampleBoolean": true
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/barangay"
+        },
+        "name": "Barangay",
+        "description": "Barangay from the standard geographic code.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/barangays"
+        },
+        "name": "Barangays",
+        "description": "The Barangay codes valueset includes all barangay values from the Philippine Standard Geographic Codes (PSGC) published by the Philippine Statistic Authority (PSA).",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Observation/blood-pressure"
+        },
+        "name": "blood-pressure",
+        "description": "Blood pressure observation for Juan Dela Cruz taken on 17 September 2012. Systolic: 107 mmHg (Normal), Diastolic: 60 mmHg (Below low normal).",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-observation"
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/cities"
+        },
+        "name": "Cities",
+        "description": "All city values from the Philippine Standard Geographic Codes (PSGC) published by the Philippine Statistic Authority (PSA).",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/city-municipality"
+        },
+        "name": "City/Municipality",
+        "description": "City/municipality from the standard geographic code.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Condition/condition-single-ex"
+        },
+        "name": "condition-single-ex",
+        "description": "Juan Dela Cruz has an active diagnosis of Type 2 Diabetes Mellitus.",
+        "exampleBoolean": true
+      },
+      {
+        "reference": {
+          "reference": "NamingSystem/doh-nhfr-code-ns"
+        },
+        "name": "DOH National Health Faciities Registry Code",
+        "description": "Health Facility Code (HFC) from the National Health Facility Registry.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-doh-nhfr-code"
+        },
+        "name": "DOH NHFR Code",
+        "description": "Health Facility Code (HFC) from the National Health Facility Registry",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/drugs"
+        },
+        "name": "Drugs",
+        "description": "This value set includes all drug or medicament substance codes and all pharmaceutical/biologic products from FDA.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "CodeSystem/drugs"
+        },
+        "name": "Drugs",
+        "description": "Partial Establishments and Health Products to be published by the [PH FDA](https://verification.fda.gov.ph).",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/educational-attainment"
+        },
+        "name": "Educational Attainment",
+        "description": "Highest educational attainment of the patient.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/educational-attainments"
+        },
+        "name": "Educational Attainments",
+        "description": "All categories of educational programs, courses, and attainment levels in the Philippines, based on the Philippine Standard Classification of Education (PSCED) published by the Philippine Statistics Authority (PSA)",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Encounter/encounter-single-ex"
+        },
+        "name": "encounter-single-ex",
+        "description": "An ambulatory encounter for Juan Dela Cruz that has been completed.",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-encounter"
+      },
+      {
+        "reference": {
+          "reference": "Organization/organization-single-ex"
+        },
+        "name": "Example PH Core Organization",
+        "description": "An example instance of a PH Core Organization conforming to the Philippine localization profile.",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-organization"
+      },
+      {
+        "reference": {
+          "reference": "AllergyIntolerance/example-allergy"
+        },
+        "name": "example-allergy",
+        "description": "Juan Dela Cruz has a high criticality, active allergy to Benethamine penicillin.",
+        "exampleBoolean": true
+      },
+      {
+        "reference": {
+          "reference": "Condition/example-condition"
+        },
+        "name": "example-condition",
+        "description": "Juan Dela Cruz has an active diagnosis of Type 2 Diabetes Mellitus.",
+        "exampleBoolean": true
+      },
+      {
+        "reference": {
+          "reference": "Encounter/example-encounter"
+        },
+        "name": "example-encounter",
+        "description": "An ambulatory encounter for Juan Dela Cruz that has been completed.",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-encounter"
+      },
+      {
+        "reference": {
+          "reference": "Immunization/example-immunization"
+        },
+        "name": "example-immunization",
+        "description": "Flu shot for H5N1-1203.",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-immunization"
+      },
+      {
+        "reference": {
+          "reference": "Medication/example-medication"
+        },
+        "name": "example-medication",
+        "description": "A medication resource with no specific details provided.",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-medication"
+      },
+      {
+        "reference": {
+          "reference": "Patient/example-patient"
+        },
+        "name": "example-patient",
+        "description": "Juan Dela Cruz is a male patient born on 1 January 1980, residing in Manila, NCR, Philippines.",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-patient"
+      },
+      {
+        "reference": {
+          "reference": "Practitioner/example-practitioner"
+        },
+        "name": "example-practitioner",
+        "description": "Dr. Maria Clara Santos, a female practitioner born on 1985-05-15, resides at 1234 Mabini Street, Manila, NCR, 1000, Philippines. She can be contacted via mobile at +63-912-345-6789 or by email at maria.santos@example.ph.",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-practitioner"
+      },
+      {
+        "reference": {
+          "reference": "Immunization/immunization-single-ex"
+        },
+        "name": "immunization-single-ex",
+        "description": "Flu shot for H5N1-1203.",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-immunization"
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/indigenous-group"
+        },
+        "name": "Indigenous Group",
+        "description": "Indigenous / ethnic group that the patient belongs to.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/indigenous-groups"
+        },
+        "name": "Indigenous Groups",
+        "description": "A value set representing the recognized Indigenous groups to which a person may belong.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "CodeSystem/indigenous-groups"
+        },
+        "name": "Indigenous Groups",
+        "description": "A list of codes representing the recognized indigenous groups in the Philippines to which a person may belong.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/indigenous-people"
+        },
+        "name": "Indigenous People",
+        "description": "If the patient is a member of an indigenous group.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Medication/medication-single-ex"
+        },
+        "name": "medication-single-ex",
+        "description": "A medication resource with no specific details provided.",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-medication"
+      },
+      {
+        "reference": {
+          "reference": "CodeSystem/PSCED"
+        },
+        "name": "Mock PSCED",
+        "description": "Mock of the Philippine Standard Classification of Education.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "CodeSystem/PSGC"
+        },
+        "name": "Mock PSGC",
+        "description": "Mock of the Philippine Standard Geographic Code.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "CodeSystem/PSOC"
+        },
+        "name": "Mock PSOC",
+        "description": "Mock of the Philippine Standard Occupational Classification.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Observation/observation-single-ex"
+        },
+        "name": "observation-single-ex",
+        "description": "Blood pressure observation for Juan Dela Cruz taken on 17 September 2012. Systolic: 107 mmHg (Normal), Diastolic: 60 mmHg (Below low normal).",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-observation"
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/occupation"
+        },
+        "name": "Occupation",
+        "description": "Patient's occupation.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/occupational-classifications"
+        },
+        "name": "Occupation Classifications",
+        "description": "The Occupation codes valueset includes Occupational Classification values from the Philippine Standard Occupational Classification (PSOC) published by the Philippine Statistic Authority (PSA).",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Patient/patient-single-ex"
+        },
+        "name": "patient-single-ex",
+        "description": "Juan Dela Cruz is a male patient born on 1 January 1980, residing in Manila, NCR, Philippines.",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-patient"
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-address"
+        },
+        "name": "PH Core Address",
+        "description": "An address for the individual.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-encounter"
+        },
+        "name": "PH Core Encounter",
+        "description": "This profile sets minimum expectations for an Encounter resource to record, search, and fetch basic encounter information for a patient. It is based on the [FHIR R4 Encounter](https://www.hl7.org/fhir/R4/encounter.html) resource and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the Encounter when conforming to this profile. It provides the floor for standards development for specific uses cases in a Philippine context.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-immunization"
+        },
+        "name": "PH Core Immunization",
+        "description": "Describes the event of a patient being administered a vaccine or a record of an immunization as reported by a patient, a clinician or another party.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-location"
+        },
+        "name": "PH Core Location",
+        "description": "This profile localizes the FHIR R4 Location resource to the Philippine context.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-medication"
+        },
+        "name": "PH Core Medication",
+        "description": "This resource is primarily used for the identification and definition of a medication, including ingredients, for the purposes of prescribing, dispensing, and administering a medication as well as for making statements about medication use.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-observation"
+        },
+        "name": "PH Core Observation",
+        "description": "Measurements and simple assertions made about a patient, device or other subject.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-organization"
+        },
+        "name": "PH Core Organization",
+        "description": "This profile localizes the FHIR R4 Organization resource to the Philippine context.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-patient"
+        },
+        "name": "PH Core Patient",
+        "description": "Captures key demographic and administrative information about individuals receiving care or other health-related services.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-pdd-registration"
+        },
+        "name": "PH Core PhilHealth Dialysis Database Registration Number",
+        "description": "PhilHealth Dialysis Database Registration Number",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "NamingSystem/pdd-registration-ns"
+        },
+        "name": "PH Core PhilHealth Dialysis Database Registration Number",
+        "description": "PH Core PhilHealth Dialysis Database Registration Number",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-practitioner"
+        },
+        "name": "PH Core Practitioner",
+        "description": "The PH Core Practitioner Profile inherits from the [FHIR R4 Practitioner resource](https://hl7.org/fhir/R4/practitioner.html); refer to it for scope and usage definitions. This profile sets minimum expectations for the Practitioner resource to record, search, and fetch basic demographics and administrative information about an individual practitioner in a Philippine context. It specifies which core elements, extensions, vocabularies, and value sets SHALL be present and constrains how the elements are used. It provides the floor for standards development for Philippine use cases.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-procedure"
+        },
+        "name": "PH Core Procedure",
+        "description": "An action that is or was performed on or for a patient, practitioner, device, organization, or location.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-relatedperson"
+        },
+        "name": "PH Core RelatedPerson",
+        "description": "This profile localizes the FHIR R4 RelatedPerson resource to the Philippine context.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-philsys-id"
+        },
+        "name": "PhilSys Identification Number (PhilSys ID)",
+        "description": "The National ID Number is a unique and randomly-generated 12-digit permanent identification number that is assigned to every citizen or resident alien upon successful registration to National ID system.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "NamingSystem/philsys-id-ns"
+        },
+        "name": "PhilSys Identification Number (PhilSys ID)",
+        "description": "The National ID Number is a unique and randomly-generated 12-digit permanent identification number that is assigned to every citizen or resident alien upon successful registration to National ID system.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/ph-core-philhealth-id"
+        },
+        "name": "PIN - PhilHealth Identification Number",
+        "description": "The permanent and unique number issued by PhilHealth to individual members and to each and every dependent.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "NamingSystem/philhealth-id-ns"
+        },
+        "name": "PIN - PhilHealth Identification Number",
+        "description": "The permanent and unique number issued by PhilHealth to individual members and to each and every dependent.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "Practitioner/practitioner-single-ex"
+        },
+        "name": "practitioner-single-ex",
+        "description": "Dr. Maria Clara Santos, a female practitioner born on 1985-05-15, resides at 1234 Mabini Street, Manila, NCR, 1000, Philippines. She can be contacted via mobile at +63-912-345-6789 or by email at maria.santos@example.ph.",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-practitioner"
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/province"
+        },
+        "name": "Province",
+        "description": "Province from the standard geographic code.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/provinces"
+        },
+        "name": "Provinces",
+        "description": "All province values from the Philippine Standard Geographic Codes (PSGC) published by the Philippine Statistic Authority (PSA).",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/race"
+        },
+        "name": "Race",
+        "description": "race of a patient.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "StructureDefinition/region"
+        },
+        "name": "Region",
+        "description": "Region from the standard geographic code.",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "ValueSet/regions"
+        },
+        "name": "Regions",
+        "description": "The Region codes valueset includes all region values from the Philippine Standard Geographic Codes (PSGC) published by the Philippine Statistic Authority (PSA).",
+        "exampleBoolean": false
+      },
+      {
+        "reference": {
+          "reference": "RelatedPerson/relatedperson-single-ex"
+        },
+        "name": "relatedperson-single-ex",
+        "description": "Maria Cruz Santos is a female born on 1 January 1955.",
+        "exampleCanonical": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-relatedperson"
+      },
+      {
+        "reference": {
+          "reference": "Bundle/transaction-ex"
+        },
+        "name": "transaction-ex",
+        "description": "Juan Dela Cruz has his blood pressure checked by Dr. Maria Clara Santos.",
+        "exampleBoolean": true
+      }
+    ],
+    "page": {
+      "nameUrl": "toc.html",
+      "title": "Table of Contents",
+      "generation": "html",
+      "page": [
+        {
+          "nameUrl": "index.html",
+          "title": "Home",
+          "generation": "markdown"
+        },
+        {
+          "nameUrl": "otherIds.html",
+          "title": "Other Ids",
+          "generation": "markdown"
+        }
+      ]
+    },
+    "parameter": [
+      {
+        "code": "copyrightyear",
+        "value": "2025+"
+      },
+      {
+        "code": "releaselabel",
+        "value": "ci-build"
+      }
+    ]
+  }
+}

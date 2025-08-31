@@ -1,0 +1,26 @@
+{
+  "resourceType": "NamingSystem",
+  "id": "philhealth-id-ns",
+  "description": "The permanent and unique number issued by PhilHealth to individual members and to each and every dependent.",
+  "jurisdiction": [
+    {
+      "coding": [
+        {
+          "code": "PH",
+          "system": "urn:iso:std:iso:3166"
+        }
+      ]
+    }
+  ],
+  "uniqueId": [
+    {
+      "type": "uri",
+      "value": "http://philhealth.gov.ph/fhir/Identifier/philhealth-id"
+    }
+  ],
+  "name": "PhilHealthID",
+  "kind": "identifier",
+  "status": "draft",
+  "date": "2025-06-01",
+  "publisher": "PhilHealth"
+}

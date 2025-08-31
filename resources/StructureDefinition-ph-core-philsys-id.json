@@ -1,0 +1,35 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "ph-core-philsys-id",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-philsys-id",
+  "name": "PHCorePhilSysID",
+  "title": "PhilSys Identification Number (PhilSys ID)",
+  "status": "draft",
+  "description": "The National ID Number is a unique and randomly-generated 12-digit permanent identification number that is assigned to every citizen or resident alien upon successful registration to National ID system.",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "type": "Identifier",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Identifier",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Identifier.system",
+        "path": "Identifier.system",
+        "min": 1,
+        "fixedUri": "urn://example.com/ph-core/fhir/NamingSystem/philsys-id-ns"
+      },
+      {
+        "id": "Identifier.value",
+        "path": "Identifier.value",
+        "example": [
+          {
+            "label": "PhilSys ID",
+            "valueString": "nnnn-nnnnnnn-n"
+          }
+        ]
+      }
+    ]
+  }
+}

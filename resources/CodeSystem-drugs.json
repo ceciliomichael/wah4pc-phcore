@@ -1,0 +1,12 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "not-present",
+  "name": "Drugs",
+  "id": "drugs",
+  "title": "Drugs",
+  "description": "Partial Establishments and Health Products to be published by the [PH FDA](https://verification.fda.gov.ph).",
+  "url": "http://localhost:5072/ph-core/fhir/CodeSystem/drugs",
+  "experimental": true,
+  "caseSensitive": true
+}

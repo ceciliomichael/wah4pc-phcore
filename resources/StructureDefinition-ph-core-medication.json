@@ -1,0 +1,28 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "ph-core-medication",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-medication",
+  "name": "PHCoreMedication",
+  "title": "PH Core Medication",
+  "status": "draft",
+  "experimental": true,
+  "description": "This resource is primarily used for the identification and definition of a medication, including ingredients, for the purposes of prescribing, dispensing, and administering a medication as well as for making statements about medication use.",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Medication",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Medication",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Medication.code",
+        "path": "Medication.code",
+        "binding": {
+          "strength": "extensible",
+          "valueSet": "http://localhost:5072/ph-core/fhir/ValueSet/drugs"
+        }
+      }
+    ]
+  }
+}

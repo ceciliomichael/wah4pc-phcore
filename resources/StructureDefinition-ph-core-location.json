@@ -1,0 +1,61 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "ph-core-location",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-location",
+  "name": "PHCoreLocation",
+  "title": "PH Core Location",
+  "status": "draft",
+  "description": "This profile localizes the FHIR R4 Location resource to the Philippine context.",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Location",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Location",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Location.address",
+        "path": "Location.address",
+        "type": [
+          {
+            "code": "Address",
+            "profile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-address"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Location.managingOrganization",
+        "path": "Location.managingOrganization",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-organization"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Location.partOf",
+        "path": "Location.partOf",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-location"
+            ],
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/structuredefinition-hierarchy",
+                "valueBoolean": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

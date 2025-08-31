@@ -1,0 +1,45 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "ph-core-encounter",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-encounter",
+  "name": "PHCoreEncounter",
+  "title": "PH Core Encounter",
+  "status": "draft",
+  "description": "This profile sets minimum expectations for an Encounter resource to record, search, and fetch basic encounter information for a patient. It is based on the [FHIR R4 Encounter](https://www.hl7.org/fhir/R4/encounter.html) resource and identifies the *additional* mandatory core elements, extensions, vocabularies and value sets that **SHALL** be present in the Encounter when conforming to this profile. It provides the floor for standards development for specific uses cases in a Philippine context.",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Encounter",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Encounter",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Encounter.subject",
+        "path": "Encounter.subject",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-patient"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Encounter.participant.individual",
+        "path": "Encounter.participant.individual",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-practitioner",
+              "http://hl7.org/fhir/StructureDefinition/PractitionerRole",
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-relatedperson"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "ph-core-philhealth-id",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-philhealth-id",
+  "name": "PHCorePhilHealthID",
+  "title": "PIN - PhilHealth Identification Number",
+  "status": "draft",
+  "description": "The permanent and unique number issued by PhilHealth to individual members and to each and every dependent.",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "type": "Identifier",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Identifier",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Identifier.system",
+        "path": "Identifier.system",
+        "min": 1,
+        "fixedUri": "urn://example.com/ph-core/fhir/NamingSystem/philhealth-id-ns"
+      },
+      {
+        "id": "Identifier.value",
+        "path": "Identifier.value",
+        "short": "PIN - PhilHealth Identification Number",
+        "example": [
+          {
+            "label": "PhilHealth ID",
+            "valueString": "nn-nnnnnnnnn-n"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "resourceType": "ValueSet",
+  "status": "draft",
+  "name": "Drugs",
+  "id": "drugs",
+  "title": "Drugs",
+  "description": "This value set includes all drug or medicament substance codes and all pharmaceutical/biologic products from FDA.",
+  "url": "http://localhost:5072/ph-core/fhir/ValueSet/drugs",
+  "experimental": true
+}

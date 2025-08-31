@@ -1,0 +1,25 @@
+{
+  "resourceType": "Encounter",
+  "id": "encounter-single-ex",
+  "meta": {
+    "profile": [
+      "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-encounter"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">An ambulatory encounter for Juan Dela Cruz that has been completed.</div>"
+  },
+  "status": "finished",
+  "class": {
+    "code": "AMB",
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "display": "ambulatory"
+  },
+  "subject": {
+    "reference": "Patient/patient-single-ex"
+  },
+  "serviceProvider": {
+    "reference": "Organization/organization-single-ex"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "ph-core-doh-nhfr-code",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-doh-nhfr-code",
+  "name": "PHCoreDohNhfrCode",
+  "title": "DOH NHFR Code",
+  "status": "draft",
+  "description": "Health Facility Code (HFC) from the National Health Facility Registry",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "type": "Identifier",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Identifier",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Identifier.system",
+        "path": "Identifier.system",
+        "min": 1,
+        "fixedUri": "urn://example.com/ph-core/fhir/NamingSystem/doh-nhfr-code-ns"
+      },
+      {
+        "id": "Identifier.value",
+        "path": "Identifier.value",
+        "short": "DOH NHFR Code",
+        "example": [
+          {
+            "label": "DOH NHFR Code",
+            "valueString": "4XYZ123"
+          }
+        ]
+      }
+    ]
+  }
+}

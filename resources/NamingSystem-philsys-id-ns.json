@@ -1,0 +1,26 @@
+{
+  "resourceType": "NamingSystem",
+  "id": "philsys-id-ns",
+  "description": "The National ID Number is a unique and randomly-generated 12-digit permanent identification number that is assigned to every citizen or resident alien upon successful registration to National ID system.",
+  "jurisdiction": [
+    {
+      "coding": [
+        {
+          "code": "PH",
+          "system": "urn:iso:std:iso:3166"
+        }
+      ]
+    }
+  ],
+  "uniqueId": [
+    {
+      "type": "uri",
+      "value": "https://philsys.gov.ph"
+    }
+  ],
+  "name": "PhilSysID",
+  "kind": "identifier",
+  "status": "draft",
+  "date": "2025-06-13",
+  "publisher": "Philippine National Indentification System"
+}

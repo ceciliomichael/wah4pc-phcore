@@ -1,0 +1,103 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "complete",
+  "name": "PSGC",
+  "id": "PSGC",
+  "title": "Mock PSGC",
+  "description": "Mock of the Philippine Standard Geographic Code.",
+  "url": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+  "concept": [
+    {
+      "code": "1380100001",
+      "display": "Barangay 1"
+    },
+    {
+      "code": "1380100000",
+      "display": "City of Caloocan"
+    },
+    {
+      "code": "1380200000",
+      "display": "City of Las Piñas"
+    },
+    {
+      "code": "1400100000",
+      "display": "Abra"
+    },
+    {
+      "code": "1401100000",
+      "display": "Benguet"
+    },
+    {
+      "code": "1402700000",
+      "display": "Ifugao"
+    },
+    {
+      "code": "1403200000",
+      "display": "Kalinga"
+    },
+    {
+      "code": "1404400000",
+      "display": "Mountain Province"
+    },
+    {
+      "code": "1408100000",
+      "display": "Apayao"
+    },
+    {
+      "code": "0102800000",
+      "display": "Ilocos Norte"
+    },
+    {
+      "code": "0102900000",
+      "display": "Ilocos Sur"
+    },
+    {
+      "code": "0103300000",
+      "display": "La Union"
+    },
+    {
+      "code": "0105500000",
+      "display": "Pangasinan"
+    },
+    {
+      "code": "0200900000",
+      "display": "Batanes"
+    },
+    {
+      "code": "0201500000",
+      "display": "Cagayan"
+    },
+    {
+      "code": "0203100000",
+      "display": "Isabela"
+    },
+    {
+      "code": "0402100000",
+      "display": "Cavite"
+    },
+    {
+      "code": "0403400000",
+      "display": "Laguna"
+    },
+    {
+      "code": "0405600000",
+      "display": "Quezon"
+    },
+    {
+      "code": "0405800000",
+      "display": "Rizal"
+    },
+    {
+      "code": "1704000000",
+      "display": "Marinduque"
+    },
+    {
+      "code": "1705100000",
+      "display": "Occidental Mindoro"
+    }
+  ],
+  "experimental": true,
+  "caseSensitive": true,
+  "count": 22
+}

@@ -1,0 +1,55 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "indigenous-group",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/indigenous-group",
+  "name": "IndigenousGroup",
+  "title": "Indigenous Group",
+  "status": "draft",
+  "experimental": true,
+  "description": "Indigenous / ethnic group that the patient belongs to.",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "expression": "Patient",
+      "type": "element"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "Indigenous Group",
+        "definition": "Indigenous / ethnic group that the patient belongs to."
+      },
+      {
+        "id": "Extension.extension",
+        "path": "Extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://localhost:5072/ph-core/fhir/StructureDefinition/indigenous-group"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          }
+        ],
+        "binding": {
+          "strength": "required",
+          "valueSet": "http://localhost:5072/ph-core/fhir/ValueSet/indigenous-groups"
+        }
+      }
+    ]
+  }
+}

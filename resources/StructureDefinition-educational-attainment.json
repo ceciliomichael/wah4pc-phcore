@@ -1,0 +1,55 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "educational-attainment",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/educational-attainment",
+  "name": "EducationalAttainment",
+  "title": "Educational Attainment",
+  "status": "draft",
+  "experimental": true,
+  "description": "Highest educational attainment of the patient.",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "expression": "Patient",
+      "type": "element"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "Educational Attainment",
+        "definition": "Highest educational attainment of the patient."
+      },
+      {
+        "id": "Extension.extension",
+        "path": "Extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://localhost:5072/ph-core/fhir/StructureDefinition/educational-attainment"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          }
+        ],
+        "binding": {
+          "strength": "required",
+          "valueSet": "http://localhost:5072/ph-core/fhir/ValueSet/educational-attainments"
+        }
+      }
+    ]
+  }
+}

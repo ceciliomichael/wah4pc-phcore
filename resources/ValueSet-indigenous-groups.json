@@ -1,0 +1,17 @@
+{
+  "resourceType": "ValueSet",
+  "status": "draft",
+  "name": "IndigenousGroups",
+  "id": "indigenous-groups",
+  "title": "Indigenous Groups",
+  "description": "A value set representing the recognized Indigenous groups to which a person may belong.",
+  "url": "http://localhost:5072/ph-core/fhir/ValueSet/indigenous-groups",
+  "experimental": true,
+  "compose": {
+    "include": [
+      {
+        "system": "http://localhost:5072/ph-core/fhir/CodeSystem/indigenous-groups"
+      }
+    ]
+  }
+}

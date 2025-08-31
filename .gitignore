@@ -1,0 +1,18 @@
+# Taskmaster
+.taskmaster
+.cursorrules
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+
+.venv/

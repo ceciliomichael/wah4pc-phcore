@@ -1,0 +1,54 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "race",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/race",
+  "name": "Race",
+  "title": "Race",
+  "status": "draft",
+  "description": "race of a patient.",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "expression": "Patient",
+      "type": "element"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "Race",
+        "definition": "race of a patient."
+      },
+      {
+        "id": "Extension.extension",
+        "path": "Extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://localhost:5072/ph-core/fhir/StructureDefinition/race"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          }
+        ],
+        "binding": {
+          "strength": "required",
+          "valueSet": "http://terminology.hl7.org/ValueSet/v3-Race"
+        }
+      }
+    ]
+  }
+}

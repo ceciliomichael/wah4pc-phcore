@@ -1,0 +1,246 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "ph-core-patient",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-patient",
+  "name": "PHCorePatient",
+  "title": "PH Core Patient",
+  "status": "draft",
+  "description": "Captures key demographic and administrative information about individuals receiving care or other health-related services.",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Patient",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Patient",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Patient.extension",
+        "path": "Patient.extension",
+        "slicing": {
+          "discriminator": [
+            {
+              "type": "value",
+              "path": "url"
+            }
+          ],
+          "ordered": false,
+          "rules": "open"
+        },
+        "min": 1
+      },
+      {
+        "id": "Patient.extension:nationality",
+        "path": "Patient.extension",
+        "sliceName": "nationality",
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://hl7.org/fhir/StructureDefinition/patient-nationality|5.2.0"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Patient.extension:religion",
+        "path": "Patient.extension",
+        "sliceName": "religion",
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://hl7.org/fhir/StructureDefinition/patient-religion|5.2.0"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Patient.extension:indigenousGroup",
+        "path": "Patient.extension",
+        "sliceName": "indigenousGroup",
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/indigenous-group"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Patient.extension:indigenousPeople",
+        "path": "Patient.extension",
+        "sliceName": "indigenousPeople",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/indigenous-people"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Patient.extension:occupation",
+        "path": "Patient.extension",
+        "sliceName": "occupation",
+        "min": 0,
+        "max": "*",
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/occupation"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Patient.extension:race",
+        "path": "Patient.extension",
+        "sliceName": "race",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/race"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Patient.extension:educationalAttainment",
+        "path": "Patient.extension",
+        "sliceName": "educationalAttainment",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "Extension",
+            "profile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/educational-attainment"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Patient.identifier",
+        "path": "Patient.identifier",
+        "slicing": {
+          "discriminator": [
+            {
+              "type": "value",
+              "path": "system"
+            }
+          ],
+          "rules": "open",
+          "description": "Slicing based on identifier system",
+          "ordered": false
+        }
+      },
+      {
+        "id": "Patient.identifier:PHCorePhilHealthID",
+        "path": "Patient.identifier",
+        "sliceName": "PHCorePhilHealthID",
+        "short": "PhilHealth ID",
+        "definition": "PhilHealth ID",
+        "min": 0,
+        "max": "*",
+        "mustSupport": true
+      },
+      {
+        "id": "Patient.identifier:PHCorePhilHealthID.type.coding.system",
+        "path": "Patient.identifier.type.coding.system",
+        "fixedUri": "http://terminology.hl7.org/CodeSystem/v2-0203"
+      },
+      {
+        "id": "Patient.identifier:PHCorePhilHealthID.type.coding.code",
+        "path": "Patient.identifier.type.coding.code",
+        "fixedCode": "NH"
+      },
+      {
+        "id": "Patient.identifier:PHCorePhilHealthID.system",
+        "path": "Patient.identifier.system",
+        "min": 1,
+        "patternUri": "http://philhealth.gov.ph/fhir/Identifier/philhealth-id"
+      },
+      {
+        "id": "Patient.identifier:PHCorePddRegistration",
+        "path": "Patient.identifier",
+        "sliceName": "PHCorePddRegistration",
+        "short": "PDD Registration Number",
+        "definition": "PhilHealth Dialysis Database Registration Number",
+        "min": 0,
+        "max": "*",
+        "mustSupport": true
+      },
+      {
+        "id": "Patient.identifier:PHCorePddRegistration.type.coding.system",
+        "path": "Patient.identifier.type.coding.system",
+        "fixedUri": "http://terminology.hl7.org/CodeSystem/v2-0203"
+      },
+      {
+        "id": "Patient.identifier:PHCorePddRegistration.type.coding.code",
+        "path": "Patient.identifier.type.coding.code",
+        "fixedCode": "NH"
+      },
+      {
+        "id": "Patient.identifier:PHCorePddRegistration.system",
+        "path": "Patient.identifier.system",
+        "min": 1,
+        "patternUri": "http://doh.gov.ph/fhir/Identifier/pdd-registration"
+      },
+      {
+        "id": "Patient.address",
+        "path": "Patient.address",
+        "type": [
+          {
+            "code": "Address",
+            "profile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-address"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Patient.maritalStatus",
+        "path": "Patient.maritalStatus",
+        "binding": {
+          "strength": "required",
+          "valueSet": "http://hl7.org/fhir/ValueSet/marital-status"
+        }
+      },
+      {
+        "id": "Patient.contact.relationship",
+        "path": "Patient.contact.relationship",
+        "binding": {
+          "strength": "required",
+          "valueSet": "http://hl7.org/fhir/ValueSet/relatedperson-relationshiptype"
+        }
+      },
+      {
+        "id": "Patient.contact.address",
+        "path": "Patient.contact.address",
+        "type": [
+          {
+            "code": "Address",
+            "profile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-address"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

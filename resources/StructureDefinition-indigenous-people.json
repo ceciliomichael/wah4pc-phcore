@@ -1,0 +1,50 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "indigenous-people",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/indigenous-people",
+  "name": "IndigenousPeople",
+  "title": "Indigenous People",
+  "status": "draft",
+  "description": "If the patient is a member of an indigenous group.",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "expression": "Patient",
+      "type": "element"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "Indigenous People",
+        "definition": "If the patient is a member of an indigenous group."
+      },
+      {
+        "id": "Extension.extension",
+        "path": "Extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://localhost:5072/ph-core/fhir/StructureDefinition/indigenous-people"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "boolean"
+          }
+        ]
+      }
+    ]
+  }
+}

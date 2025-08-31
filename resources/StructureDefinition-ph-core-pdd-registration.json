@@ -1,0 +1,36 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "ph-core-pdd-registration",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-pdd-registration",
+  "name": "PHCorePddRegistration",
+  "title": "PH Core PhilHealth Dialysis Database Registration Number",
+  "status": "draft",
+  "description": "PhilHealth Dialysis Database Registration Number",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "type": "Identifier",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Identifier",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Identifier.system",
+        "path": "Identifier.system",
+        "min": 1,
+        "fixedUri": "urn://example.com/ph-core/fhir/NamingSystem/pdd-registration-ns"
+      },
+      {
+        "id": "Identifier.value",
+        "path": "Identifier.value",
+        "short": "PDD Registration No.",
+        "example": [
+          {
+            "label": "PDD Registration No.",
+            "valueString": "1234567"
+          }
+        ]
+      }
+    ]
+  }
+}

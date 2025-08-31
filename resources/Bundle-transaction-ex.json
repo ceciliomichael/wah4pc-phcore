@@ -1,0 +1,517 @@
+{
+  "resourceType": "Bundle",
+  "id": "transaction-ex",
+  "entry": [
+    {
+      "request": {
+        "method": "POST",
+        "url": "Patient"
+      },
+      "fullUrl": "urn:uuid:64eb2d39-8da6-4c1d-b4c7-a6d3e916cd5b",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "example-patient",
+        "meta": {
+          "profile": [
+            "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-patient"
+          ]
+        },
+        "name": [
+          {
+            "given": [
+              "Juan Jane",
+              "Dela Fuente"
+            ],
+            "family": "Dela Cruz"
+          }
+        ],
+        "extension": [
+          {
+            "extension": [
+              {
+                "url": "code",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "PH",
+                      "system": "urn:iso:std:iso:3166",
+                      "display": "Philippines"
+                    }
+                  ]
+                }
+              },
+              {
+                "valuePeriod": {
+                  "start": "2020-01-01",
+                  "end": "2023-01-01"
+                },
+                "url": "period"
+              }
+            ],
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-nationality"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-religion",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "1007",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ReligiousAffiliation",
+                  "display": "Atheism"
+                }
+              ]
+            }
+          },
+          {
+            "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/indigenous-people",
+            "valueBoolean": true
+          },
+          {
+            "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/indigenous-group",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "Ilongots",
+                  "system": "urn://example.com/ph-core/fhir/CodeSystem/indigenous-groups",
+                  "display": "Ilongots"
+                }
+              ]
+            }
+          },
+          {
+            "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/race",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "2036-2",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-Race",
+                  "display": "Filipino"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "system": "urn://example.com/ph-core/fhir/NamingSystem/philhealth-id-ns",
+            "value": "63-584789845-5"
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "123 Mabini Street",
+              "Barangay Malinis"
+            ],
+            "extension": [
+              {
+                "url": "urn://example.com/ph-core/fhir/StructureDefinition/city-municipality",
+                "valueCoding": {
+                  "code": "1380200000",
+                  "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+                  "display": "City of Las Piñas"
+                }
+              },
+              {
+                "url": "urn://example.com/ph-core/fhir/StructureDefinition/city-municipality",
+                "valueCoding": {
+                  "code": "1380100000",
+                  "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+                  "display": "City of Caloocan"
+                }
+              },
+              {
+                "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
+                "valueCoding": {
+                  "code": "0402100000",
+                  "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+                  "display": "Cavite"
+                }
+              },
+              {
+                "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
+                "valueCoding": {
+                  "code": "0403400000",
+                  "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+                  "display": "Laguna"
+                }
+              },
+              {
+                "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
+                "valueCoding": {
+                  "code": "0405800000",
+                  "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+                  "display": "Rizal"
+                }
+              },
+              {
+                "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
+                "valueCoding": {
+                  "code": "1704000000",
+                  "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+                  "display": "Marinduque"
+                }
+              },
+              {
+                "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
+                "valueCoding": {
+                  "code": "0402100000",
+                  "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+                  "display": "Cavite"
+                }
+              },
+              {
+                "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
+                "valueCoding": {
+                  "code": "1705100000",
+                  "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+                  "display": "Occidental Mindoro"
+                }
+              }
+            ],
+            "city": "Quezon City",
+            "district": "NCR",
+            "postalCode": "1100",
+            "country": "PH"
+          }
+        ],
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Juan Dela Cruz is a male patient born on 1 January 1980, residing in Manila, NCR, Philippines.</div>"
+        },
+        "gender": "male",
+        "birthDate": "1985-06-15",
+        "active": true
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "Encounter"
+      },
+      "fullUrl": "urn:uuid:60b7132e-7cfd-44bc-83c2-de140dc8aaae",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "example-encounter",
+        "meta": {
+          "profile": [
+            "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-encounter"
+          ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">An ambulatory encounter for Juan Dela Cruz that has been completed.</div>"
+        },
+        "status": "finished",
+        "class": {
+          "code": "AMB",
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "display": "ambulatory"
+        },
+        "subject": {
+          "reference": "urn:uuid:64eb2d39-8da6-4c1d-b4c7-a6d3e916cd5b"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "Condition"
+      },
+      "fullUrl": "urn:uuid:1a391d1e-a068-479a-88e3-e3d52c3a6f64",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "example-condition",
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Juan Dela Cruz has an active diagnosis of Type 2 Diabetes Mellitus.</div>"
+        },
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "display": "Active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "code": "44054006",
+              "system": "http://snomed.info/sct",
+              "display": "Diabetes mellitus type 2"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:64eb2d39-8da6-4c1d-b4c7-a6d3e916cd5b"
+        },
+        "encounter": {
+          "reference": "urn:uuid:60b7132e-7cfd-44bc-83c2-de140dc8aaae"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "Medication"
+      },
+      "fullUrl": "urn:uuid:024dcb47-cc23-407a-839b-b4634e95abae",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "example-medication",
+        "meta": {
+          "profile": [
+            "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-medication"
+          ]
+        },
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">A medication resource has been created, but no specific details are provided.</div>"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "Observation"
+      },
+      "fullUrl": "urn:uuid:013f46df-f245-4a2f-beaf-9eb2c47fb1a3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "blood-pressure",
+        "meta": {
+          "profile": [
+            "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-observation",
+            "http://hl7.org/fhir/StructureDefinition/vitalsigns",
+            "http://hl7.org/fhir/StructureDefinition/bp"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:187e0c12-8dd2-67e2-99b2-bf273c878281"
+          }
+        ],
+        "basedOn": [
+          {
+            "identifier": {
+              "system": "https://acme.org/identifiers",
+              "value": "1234"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "display": "Vital Signs"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "85354-9",
+              "system": "http://loinc.org",
+              "display": "Blood pressure panel with all children optional"
+            }
+          ],
+          "text": "Blood pressure systolic & diastolic"
+        },
+        "performer": [
+          {
+            "reference": "urn:uuid:a036fd4c-c950-497b-8905-0d2c5ec6f1d4"
+          }
+        ],
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "L",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "display": "Low"
+              }
+            ],
+            "text": "Below low normal"
+          }
+        ],
+        "component": [
+          {
+            "interpretation": [
+              {
+                "coding": [
+                  {
+                    "code": "N",
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                    "display": "Normal"
+                  }
+                ],
+                "text": "Normal"
+              }
+            ],
+            "code": {
+              "coding": [
+                {
+                  "code": "8480-6",
+                  "system": "http://loinc.org",
+                  "display": "Systolic blood pressure"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 107,
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg"
+            }
+          },
+          {
+            "interpretation": [
+              {
+                "coding": [
+                  {
+                    "code": "L",
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                    "display": "Low"
+                  }
+                ],
+                "text": "Below low normal"
+              }
+            ],
+            "code": {
+              "coding": [
+                {
+                  "code": "8462-4",
+                  "system": "http://loinc.org",
+                  "display": "Diastolic blood pressure"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 60,
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg"
+            }
+          }
+        ],
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">On 17 September 2012, a blood pressure observation was recorded for Juan Dela Cruz. The systolic pressure was 107 mmHg (Normal), and the diastolic pressure was 60 mmHg (Below low normal). The measurement was taken from the right arm and performed by a practitioner.</div>"
+        },
+        "status": "final",
+        "subject": {
+          "reference": "urn:uuid:64eb2d39-8da6-4c1d-b4c7-a6d3e916cd5b"
+        },
+        "effectiveDateTime": "2012-09-17",
+        "bodySite": {
+          "coding": [
+            {
+              "code": "368209003",
+              "system": "http://snomed.info/sct",
+              "display": "Right arm"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "AllergyIntolerance"
+      },
+      "fullUrl": "urn:uuid:b43c67e7-d9c4-48bb-a1b4-55769eeb9066",
+      "resource": {
+        "resourceType": "AllergyIntolerance",
+        "id": "example-allergy",
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Juan Dela Cruz has a high criticality, active allergy to Benethamine penicillin.</div>"
+        },
+        "code": {
+          "coding": [
+            {
+              "code": "294494002",
+              "system": "http://snomed.info/sct",
+              "display": "Benethamine penicillin allergy"
+            }
+          ]
+        },
+        "criticality": "high",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active",
+              "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+              "display": "Active"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "urn:uuid:64eb2d39-8da6-4c1d-b4c7-a6d3e916cd5b"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "Practitioner"
+      },
+      "fullUrl": "urn:uuid:a036fd4c-c950-497b-8905-0d2c5ec6f1d4",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "example-practitioner",
+        "meta": {
+          "profile": [
+            "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-practitioner"
+          ]
+        },
+        "name": [
+          {
+            "given": [
+              "Maria",
+              "Clara"
+            ],
+            "family": "Santos"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+63-912-345-6789",
+            "use": "mobile"
+          },
+          {
+            "system": "email",
+            "value": "maria.santos@example.ph",
+            "use": "work"
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "1234 Mabini Street"
+            ],
+            "use": "home",
+            "city": "Manila",
+            "state": "NCR",
+            "postalCode": "1000",
+            "country": "PH"
+          }
+        ],
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Dr. Maria Clara Santos is a female practitioner born on May 15, 1985. She resides at 1234 Mabini Street, Manila, NCR, 1000, Philippines. She can be contacted via mobile at +63-912-345-6789 or by email at maria.santos@example.ph.</div>"
+        },
+        "gender": "female",
+        "birthDate": "1985-05-15"
+      }
+    }
+  ],
+  "type": "transaction"
+}

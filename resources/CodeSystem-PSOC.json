@@ -1,0 +1,12 @@
+{
+  "resourceType": "CodeSystem",
+  "status": "draft",
+  "content": "not-present",
+  "name": "PSOC",
+  "id": "PSOC",
+  "title": "Mock PSOC",
+  "description": "Mock of the Philippine Standard Occupational Classification.",
+  "url": "http://localhost:5072/ph-core/fhir/CodeSystem/PSOC",
+  "experimental": true,
+  "caseSensitive": true
+}

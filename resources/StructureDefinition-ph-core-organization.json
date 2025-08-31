@@ -1,0 +1,89 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "ph-core-organization",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-organization",
+  "name": "PHCoreOrganization",
+  "title": "PH Core Organization",
+  "status": "draft",
+  "description": "This profile localizes the FHIR R4 Organization resource to the Philippine context.",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Organization",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Organization",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Organization.identifier",
+        "path": "Organization.identifier",
+        "slicing": {
+          "discriminator": [
+            {
+              "type": "value",
+              "path": "system"
+            }
+          ],
+          "rules": "open",
+          "description": "Slicing based on identifier system",
+          "ordered": false
+        }
+      },
+      {
+        "id": "Organization.identifier:NhfrCode",
+        "path": "Organization.identifier",
+        "sliceName": "NhfrCode",
+        "short": "DOH NHFR Code",
+        "definition": "Philippines Department of Health National Health Facilities Registry Code",
+        "min": 0,
+        "max": "*",
+        "mustSupport": true
+      },
+      {
+        "id": "Organization.identifier:NhfrCode.use",
+        "path": "Organization.identifier.use",
+        "patternCode": "official"
+      },
+      {
+        "id": "Organization.identifier:NhfrCode.type.coding.system",
+        "path": "Organization.identifier.type.coding.system",
+        "fixedUri": "http://terminology.hl7.org/CodeSystem/v2-0203"
+      },
+      {
+        "id": "Organization.identifier:NhfrCode.type.coding.code",
+        "path": "Organization.identifier.type.coding.code",
+        "fixedCode": "FI"
+      },
+      {
+        "id": "Organization.identifier:NhfrCode.system",
+        "path": "Organization.identifier.system",
+        "min": 1,
+        "fixedUri": "http://doh.gov.ph/fhir/Identifier/doh-nhfr-code"
+      },
+      {
+        "id": "Organization.address",
+        "path": "Organization.address",
+        "type": [
+          {
+            "code": "Address",
+            "profile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-address"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Organization.contact.address",
+        "path": "Organization.contact.address",
+        "type": [
+          {
+            "code": "Address",
+            "profile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-address"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

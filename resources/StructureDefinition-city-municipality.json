@@ -1,0 +1,55 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "city-municipality",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/city-municipality",
+  "name": "CityMunicipality",
+  "title": "City/Municipality",
+  "status": "draft",
+  "experimental": true,
+  "description": "City/municipality from the standard geographic code.",
+  "fhirVersion": "4.0.1",
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "expression": "Address",
+      "type": "element"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "City/Municipality",
+        "definition": "City/municipality from the standard geographic code."
+      },
+      {
+        "id": "Extension.extension",
+        "path": "Extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "http://localhost:5072/ph-core/fhir/StructureDefinition/city-municipality"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "type": [
+          {
+            "code": "Coding"
+          }
+        ],
+        "binding": {
+          "strength": "extensible",
+          "valueSet": "http://localhost:5072/ph-core/fhir/ValueSet/cities"
+        }
+      }
+    ]
+  }
+}

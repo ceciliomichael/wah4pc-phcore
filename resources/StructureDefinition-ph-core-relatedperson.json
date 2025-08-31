@@ -1,0 +1,44 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "ph-core-relatedperson",
+  "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-relatedperson",
+  "name": "PHCoreRelatedPerson",
+  "title": "PH Core RelatedPerson",
+  "status": "draft",
+  "description": "This profile localizes the FHIR R4 RelatedPerson resource to the Philippine context.",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "RelatedPerson",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/RelatedPerson",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "RelatedPerson.identifier",
+        "path": "RelatedPerson.identifier",
+        "type": [
+          {
+            "code": "Identifier",
+            "profile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-philhealth-id",
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-philsys-id"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "RelatedPerson.address",
+        "path": "RelatedPerson.address",
+        "type": [
+          {
+            "code": "Address",
+            "profile": [
+              "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-address"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

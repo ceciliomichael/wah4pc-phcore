@@ -1,0 +1,175 @@
+{
+  "resourceType": "Patient",
+  "id": "example-patient",
+  "meta": {
+    "profile": [
+      "http://localhost:5072/ph-core/fhir/StructureDefinition/ph-core-patient"
+    ]
+  },
+  "name": [
+    {
+      "given": [
+        "Juan Jane",
+        "Dela Fuente"
+      ],
+      "family": "Dela Cruz"
+    }
+  ],
+  "extension": [
+    {
+      "extension": [
+        {
+          "url": "code",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "code": "PH",
+                "system": "urn:iso:std:iso:3166",
+                "display": "Philippines"
+              }
+            ]
+          }
+        },
+        {
+          "valuePeriod": {
+            "start": "2020-01-01",
+            "end": "2023-01-01"
+          },
+          "url": "period"
+        }
+      ],
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-nationality"
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/patient-religion",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "code": "1007",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ReligiousAffiliation",
+            "display": "Atheism"
+          }
+        ]
+      }
+    },
+    {
+      "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/indigenous-people",
+      "valueBoolean": true
+    },
+    {
+      "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/indigenous-group",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "code": "Ilongots",
+            "system": "urn://example.com/ph-core/fhir/CodeSystem/indigenous-groups",
+            "display": "Ilongots"
+          }
+        ]
+      }
+    },
+    {
+      "url": "http://localhost:5072/ph-core/fhir/StructureDefinition/race",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "code": "2036-2",
+            "system": "http://terminology.hl7.org/CodeSystem/v3-Race",
+            "display": "Filipino"
+          }
+        ]
+      }
+    }
+  ],
+  "identifier": [
+    {
+      "system": "urn://example.com/ph-core/fhir/NamingSystem/philhealth-id-ns",
+      "value": "63-584789845-5"
+    }
+  ],
+  "address": [
+    {
+      "line": [
+        "123 Mabini Street",
+        "Barangay Malinis"
+      ],
+      "extension": [
+        {
+          "url": "urn://example.com/ph-core/fhir/StructureDefinition/city-municipality",
+          "valueCoding": {
+            "code": "1380200000",
+            "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+            "display": "City of Las Piñas"
+          }
+        },
+        {
+          "url": "urn://example.com/ph-core/fhir/StructureDefinition/city-municipality",
+          "valueCoding": {
+            "code": "1380100000",
+            "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+            "display": "City of Caloocan"
+          }
+        },
+        {
+          "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
+          "valueCoding": {
+            "code": "0402100000",
+            "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+            "display": "Cavite"
+          }
+        },
+        {
+          "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
+          "valueCoding": {
+            "code": "0403400000",
+            "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+            "display": "Laguna"
+          }
+        },
+        {
+          "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
+          "valueCoding": {
+            "code": "0405800000",
+            "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+            "display": "Rizal"
+          }
+        },
+        {
+          "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
+          "valueCoding": {
+            "code": "1704000000",
+            "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+            "display": "Marinduque"
+          }
+        },
+        {
+          "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
+          "valueCoding": {
+            "code": "0402100000",
+            "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+            "display": "Cavite"
+          }
+        },
+        {
+          "url": "urn://example.com/ph-core/fhir/StructureDefinition/province",
+          "valueCoding": {
+            "code": "1705100000",
+            "system": "http://localhost:5072/ph-core/fhir/CodeSystem/PSGC",
+            "display": "Occidental Mindoro"
+          }
+        }
+      ],
+      "city": "Quezon City",
+      "district": "NCR",
+      "postalCode": "1100",
+      "country": "PH"
+    }
+  ],
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Juan Dela Cruz is a male patient born on 1 January 1980, residing in Manila, NCR, Philippines.</div>"
+  },
+  "gender": "male",
+  "birthDate": "1985-06-15",
+  "active": true
+}
