@@ -94,7 +94,7 @@ class FhirServer:
                                 {"code": "search-type"}
                             ]
                         }
-                        for resource_type in self.resource_loader.resources_by_type.keys()
+                        for resource_type in self.resource_loader.by_type.keys()
                     ]
                 }]
             }
@@ -171,7 +171,7 @@ class FhirServer:
                 "entry": [
                     {
                         "resource": resource.content,
-                        "fullUrl": f"http://localhost:5072/ph-core/fhir/{resource_type}/{resource.resource_id}"
+                        "fullUrl": f"http://localhost:5072/ph-core/fhir/{resource_type}/{resource.id}"
                     }
                     for resource in resources
                 ]
