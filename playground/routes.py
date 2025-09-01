@@ -67,6 +67,14 @@ def setup_playground_routes(app: FastAPI, playground_app: PlaygroundApp) -> None
             "quick_examples": playground_app.get_quick_start_examples()
         })
         
+    @app.get("/playground/ai-helper", response_class=HTMLResponse)
+    async def playground_ai_helper(request: Request):
+        """Playground AI Helper interface (under construction)."""
+        return playground_app.templates.TemplateResponse("ai-helper.html", {
+            "request": request,
+            "title": "PHCore AI Helper - Under Construction"
+        })
+        
     @app.post("/playground/api/validate")
     async def playground_validate_api(request: ValidationRequest):
         """

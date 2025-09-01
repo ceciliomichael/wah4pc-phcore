@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/playground/static/css/playground.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <i data-lucide="bot" class="logo-icon"></i>
+                        <h1>PHCore AI Helper</h1>
+                    </div>
+                    <p class="subtitle">AI-powered assistance for FHIR resource creation and validation</p>
+                </div>
+                <div class="header-right">
+                    <a href="/playground" class="docs-button">
+                        <i data-lucide="home"></i>
+                        <span>Back to Playground</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <div class="nav-container">
+            <nav class="nav-tabs">
+                <a href="/playground" class="nav-tab">
+                    <i data-lucide="home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="/playground/validator" class="nav-tab">
+                    <i data-lucide="check-circle"></i>
+                    <span>Validator</span>
+                </a>
+                <a href="/playground/examples" class="nav-tab">
+                    <i data-lucide="file-text"></i>
+                    <span>Examples</span>
+                </a>
+                <a href="/playground/ai-helper" class="nav-tab active">
+                    <i data-lucide="bot"></i>
+                    <span>AI Helper</span>
+                </a>
+                <a href="/playground/docs" class="nav-tab">
+                    <i data-lucide="book"></i>
+                    <span>Docs</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Under Construction Section -->
+            <section class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">
+                        <i data-lucide="construction"></i>
+                    </div>
+                    <h2>AI Helper Coming Soon</h2>
+                    <p class="construction-subtitle">We're building something amazing for you!</p>
+                    
+                    <div class="construction-details">
+                        <div class="construction-card">
+                            <div class="card-icon">
+                                <i data-lucide="sparkles"></i>
+                            </div>
+                            <h3>Smart Resource Generation</h3>
+                            <p>AI-powered FHIR resource creation with PHCore compliance built-in</p>
+                        </div>
+                        
+                        <div class="construction-card">
+                            <div class="card-icon">
+                                <i data-lucide="brain"></i>
+                            </div>
+                            <h3>Intelligent Validation</h3>
+                            <p>Get AI-powered suggestions to fix validation errors and improve resources</p>
+                        </div>
+                        
+                        <div class="construction-card">
+                            <div class="card-icon">
+                                <i data-lucide="message-circle"></i>
+                            </div>
+                            <h3>Chat Assistant</h3>
+                            <p>Interactive AI chat to help with FHIR questions and PHCore implementation</p>
+                        </div>
+                        
+                        <div class="construction-card">
+                            <div class="card-icon">
+                                <i data-lucide="wand-2"></i>
+                            </div>
+                            <h3>Auto-completion</h3>
+                            <p>Smart suggestions and auto-completion for FHIR resource fields</p>
+                        </div>
+                    </div>
+                    
+                    <div class="construction-status">
+                        <div class="status-bar">
+                            <div class="status-progress" style="width: 25%"></div>
+                        </div>
+                        <p>Development Progress: 25%</p>
+                        <p class="estimated-date">Estimated Launch: Q2 2025</p>
+                    </div>
+                    
+                    <div class="construction-cta">
+                        <p>Want to be notified when AI Helper launches?</p>
+                        <div class="notification-options">
+                            <button class="btn btn-primary" onclick="showNotification('Feature coming soon! Stay tuned for updates.', 'info')">
+                                <i data-lucide="bell"></i>
+                                Get Notified
+                            </button>
+                            <a href="/playground/validator" class="btn btn-secondary">
+                                <i data-lucide="arrow-left"></i>
+                                Back to Validator
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 PHCore FHIR Playground. Built for Philippine healthcare interoperability.</p>
+                <div class="footer-links">
+                    <a href="/ph-core/fhir/metadata">Server Info</a>
+                    <a href="/docs">API Docs</a>
+                    <a href="https://www.hl7.org/fhir/">FHIR R4</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/playground/static/js/playground.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
