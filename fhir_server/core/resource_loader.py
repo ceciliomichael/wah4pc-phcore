@@ -100,8 +100,9 @@ class ResourceLoader:
         
     def _index_resource(self, resource: FhirResource):
         """Index a resource for quick lookup."""
-        # Index by ID
-        self.resources[resource.id] = resource
+        # Index by composite key ResourceType/id for uniqueness across types
+        composite_id = f"{resource.resource_type}/{resource.id}"
+        self.resources[composite_id] = resource
         
         # Index by type
         if resource.resource_type not in self.by_type:

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/playground/static/css/playground.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <i data-lucide="book-open" class="logo-icon"></i>
+                        <h1>PHCore Playground Documentation</h1>
+                    </div>
+                    <p class="subtitle">Complete guide to using the PHCore FHIR Playground</p>
+                </div>
+                <div class="header-right">
+                    <a href="/playground" class="docs-button">
+                        <i data-lucide="home"></i>
+                        <span>Back to Playground</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <div class="nav-container">
+            <nav class="nav-tabs">
+                <a href="/playground" class="nav-tab">
+                    <i data-lucide="home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="/playground/validator" class="nav-tab">
+                    <i data-lucide="check-circle"></i>
+                    <span>Validator</span>
+                </a>
+                <a href="/playground/examples" class="nav-tab">
+                    <i data-lucide="file-text"></i>
+                    <span>Examples</span>
+                </a>
+                <a href="/playground/docs" class="nav-tab active">
+                    <i data-lucide="book"></i>
+                    <span>Docs</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Getting Started Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>
+                        <i data-lucide="play-circle"></i>
+                        Getting Started
+                    </h2>
+                    <p>Learn how to use the PHCore FHIR Playground for testing and development</p>
+                </div>
+
+                <div class="docs-content">
+                    <div class="docs-card">
+                        <h3>What is the PHCore FHIR Playground?</h3>
+                        <p>The PHCore FHIR Playground is an interactive web-based environment designed for developers, healthcare professionals, and system integrators working with the Philippine Core (PHCore) Implementation Guide. It provides comprehensive tools for:</p>
+                        <ul>
+                            <li><strong>FHIR Resource Validation</strong> - Validate FHIR resources against PHCore profiles</li>
+                            <li><strong>Interactive Testing</strong> - Test your implementations in real-time</li>
+                            <li><strong>Example Exploration</strong> - Browse valid and invalid FHIR resource examples</li>
+                            <li><strong>Documentation Access</strong> - Quick access to PHCore documentation and profiles</li>
+                        </ul>
+                    </div>
+
+                    <div class="docs-card">
+                        <h3>Quick Start Guide</h3>
+                        <div class="step-list">
+                            <div class="step-item">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Access the Playground</h4>
+                                    <p>Navigate to <code>/playground</code> to access the main interface</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Choose an Example</h4>
+                                    <p>Click on any Quick Start card to load a sample FHIR resource</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Validate Resource</h4>
+                                    <p>Click "Validate Resource" or press <kbd>Ctrl+Enter</kbd> to validate</p>
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h4>Review Results</h4>
+                                    <p>Examine validation results and fix any issues identified</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>
+                        <i data-lucide="features"></i>
+                        Key Features
+                    </h2>
+                    <p>Comprehensive tools for PHCore FHIR development and testing</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                        <h3>Real-time Validation</h3>
+                        <p>Instant validation against PHCore profiles with detailed error reporting and suggestions for fixes.</p>
+                        <div class="feature-details">
+                            <h4>Validation Modes:</h4>
+                            <ul>
+                                <li><strong>Quick Mode</strong> - Fast validation with first critical error</li>
+                                <li><strong>Verbose Mode</strong> - Comprehensive validation with all issues</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i data-lucide="file-text"></i>
+                        </div>
+                        <h3>Rich Examples Library</h3>
+                        <p>Extensive collection of valid and invalid FHIR resources organized by type and use case.</p>
+                        <div class="feature-details">
+                            <h4>Available Examples:</h4>
+                            <ul>
+                                <li>Patient resources with PHCore extensions</li>
+                                <li>Encounter resources for different settings</li>
+                                <li>Observation resources for vital signs</li>
+                                <li>Medication resources with local coding</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i data-lucide="keyboard"></i>
+                        </div>
+                        <h3>Keyboard Shortcuts</h3>
+                        <p>Efficient workflow with keyboard shortcuts for common operations.</p>
+                        <div class="feature-details">
+                            <h4>Available Shortcuts:</h4>
+                            <ul>
+                                <li><kbd>Ctrl+Enter</kbd> - Validate resource</li>
+                                <li><kbd>Ctrl+K</kbd> - Clear editor</li>
+                                <li><kbd>Escape</kbd> - Hide validation results</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i data-lucide="layers"></i>
+                        </div>
+                        <h3>Profile Explorer</h3>
+                        <p>Browse and explore PHCore StructureDefinition profiles with detailed documentation.</p>
+                        <div class="feature-details">
+                            <h4>Profile Information:</h4>
+                            <ul>
+                                <li>Profile definitions and constraints</li>
+                                <li>Extension requirements</li>
+                                <li>Terminology bindings</li>
+                                <li>Usage examples</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Validation Guide Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>
+                        <i data-lucide="clipboard-check"></i>
+                        Validation Guide
+                    </h2>
+                    <p>Understanding PHCore validation results and how to fix common issues</p>
+                </div>
+
+                <div class="docs-content">
+                    <div class="docs-card">
+                        <h3>Understanding Validation Results</h3>
+                        <p>The playground provides detailed validation feedback through a color-coded system:</p>
+                        
+                        <div class="validation-examples">
+                            <div class="validation-example success">
+                                <div class="example-badge success">
+                                    <i data-lucide="check-circle"></i>
+                                    Valid
+                                </div>
+                                <p><strong>Success:</strong> Resource passes all PHCore validation requirements</p>
+                            </div>
+                            
+                            <div class="validation-example error">
+                                <div class="example-badge error">
+                                    <i data-lucide="x-circle"></i>
+                                    Error
+                                </div>
+                                <p><strong>Error:</strong> Critical issues that prevent resource acceptance</p>
+                            </div>
+                            
+                            <div class="validation-example warning">
+                                <div class="example-badge warning">
+                                    <i data-lucide="alert-triangle"></i>
+                                    Warning
+                                </div>
+                                <p><strong>Warning:</strong> Issues that should be addressed but don't prevent processing</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="docs-card">
+                        <h3>Common PHCore Validation Issues</h3>
+                        <div class="common-issues">
+                            <div class="issue-item">
+                                <h4><i data-lucide="alert-circle"></i> Missing Required Extensions</h4>
+                                <p>PHCore profiles require specific extensions like indigenous-people for Patient resources.</p>
+                                <div class="issue-solution">
+                                    <strong>Solution:</strong> Add the required extension with appropriate values.
+                                    <pre><code>"extension": [
+  {
+    "url": "https://fhir.ph/core/StructureDefinition/indigenous-people",
+    "valueBoolean": false
+  }
+]</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="issue-item">
+                                <h4><i data-lucide="alert-circle"></i> Invalid Data Types</h4>
+                                <p>Using incorrect data types for fields (e.g., string instead of CodeableConcept).</p>
+                                <div class="issue-solution">
+                                    <strong>Solution:</strong> Use the correct FHIR data type as specified in the profile.
+                                    <pre><code>// Incorrect
+"gender": "M"
+
+// Correct  
+"gender": "male"</code></pre>
+                                </div>
+                            </div>
+
+                            <div class="issue-item">
+                                <h4><i data-lucide="alert-circle"></i> Terminology Binding Violations</h4>
+                                <p>Using codes not allowed by ValueSet bindings in PHCore profiles.</p>
+                                <div class="issue-solution">
+                                    <strong>Solution:</strong> Use codes from the specified ValueSet or CodeSystem.
+                                    <pre><code>"code": {
+  "coding": [
+    {
+      "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+      "code": "vital-signs"
+    }
+  ]
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API Reference Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>
+                        <i data-lucide="code"></i>
+                        API Reference
+                    </h2>
+                    <p>Programmatic access to playground functionality</p>
+                </div>
+
+                <div class="api-reference">
+                    <div class="api-endpoint">
+                        <div class="endpoint-header">
+                            <span class="http-method post">POST</span>
+                            <span class="endpoint-path">/playground/api/validate</span>
+                        </div>
+                        <div class="endpoint-description">
+                            <p>Validate a FHIR resource against PHCore profiles</p>
+                            <h4>Request Body:</h4>
+                            <pre><code>{
+  "resource": {
+    "resourceType": "Patient",
+    "id": "example",
+    // ... FHIR resource content
+  },
+  "verbose": false
+}</code></pre>
+                            <h4>Response:</h4>
+                            <pre><code>{
+  "success": true,
+  "issues": [],
+  "total_issues": 0,
+  "error_count": 0,
+  "warning_count": 0
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="api-endpoint">
+                        <div class="endpoint-header">
+                            <span class="http-method get">GET</span>
+                            <span class="endpoint-path">/playground/api/examples/{validity}/{resource_type}</span>
+                        </div>
+                        <div class="endpoint-description">
+                            <p>Get examples by validity (valid/invalid) and resource type</p>
+                            <h4>Parameters:</h4>
+                            <ul>
+                                <li><code>validity</code> - "valid" or "invalid"</li>
+                                <li><code>resource_type</code> - FHIR resource type (e.g., "patient")</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="api-endpoint">
+                        <div class="endpoint-header">
+                            <span class="http-method get">GET</span>
+                            <span class="endpoint-path">/playground/api/profiles</span>
+                        </div>
+                        <div class="endpoint-description">
+                            <p>Get list of available PHCore profiles</p>
+                            <h4>Response:</h4>
+                            <pre><code>{
+  "profiles": [
+    {
+      "name": "PHCore Patient Profile",
+      "url": "https://fhir.ph/core/StructureDefinition/ph-core-patient",
+      "version": "1.0.0",
+      "description": "Patient profile for Philippine Core"
+    }
+  ]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Documentation Links -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>
+                        <i data-lucide="external-link"></i>
+                        External Resources
+                    </h2>
+                    <p>Additional documentation and resources for PHCore development</p>
+                </div>
+
+                <div class="docs-grid">
+                    {% for link in documentation_links %}
+                    <a href="{{ link.url }}" class="doc-card" target="_blank">
+                        <div class="doc-icon">
+                            <i data-lucide="{% if 'API' in link.title %}code{% elif 'Guide' in link.title %}map{% elif 'Profiles' in link.title %}layers{% else %}file-text{% endif %}"></i>
+                        </div>
+                        <h3>{{ link.title }}</h3>
+                        <p>{{ link.description }}</p>
+                        <div class="doc-footer">
+                            <i data-lucide="external-link"></i>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- Support Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>
+                        <i data-lucide="help-circle"></i>
+                        Support & Troubleshooting
+                    </h2>
+                    <p>Common questions and troubleshooting tips</p>
+                </div>
+
+                <div class="docs-content">
+                    <div class="docs-card">
+                        <h3>Frequently Asked Questions</h3>
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <h4>Q: Why is my valid FHIR resource failing PHCore validation?</h4>
+                                <p>A: PHCore has additional requirements beyond base FHIR, including mandatory extensions like indigenous-people for Patient resources. Check the specific PHCore profile requirements.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h4>Q: What's the difference between quick and verbose validation?</h4>
+                                <p>A: Quick mode stops at the first critical error for fast feedback. Verbose mode shows all validation issues to give you a complete picture of what needs to be fixed.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h4>Q: Can I use the playground API programmatically?</h4>
+                                <p>A: Yes! The playground provides REST API endpoints for validation and resource access. See the API Reference section above for details.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h4>Q: How do I contribute examples to the playground?</h4>
+                                <p>A: Examples are loaded from the examples/ directory. Add your FHIR resources to the appropriate valid/ or invalid/ subdirectories organized by resource type.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 PHCore FHIR Playground. Built for Philippine healthcare interoperability.</p>
+                <div class="footer-links">
+                    <a href="/ph-core/fhir/metadata">Server Info</a>
+                    <a href="/docs">API Docs</a>
+                    <a href="https://www.hl7.org/fhir/">FHIR R4</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -10,10 +10,13 @@ from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from fhir_server.core.resource_loader import ResourceLoader
 from fhir_server.validation.validator import FhirValidator, ValidationResult
+from playground.app import PlaygroundApp
+from playground.routes import setup_playground_routes
 
 
 class ValidationRequest(BaseModel):
@@ -58,8 +61,17 @@ class FhirServer:
         
         self.validator = FhirValidator(self.resource_loader)
         
+        # Initialize playground
+        self.playground_app = PlaygroundApp(self.resource_loader, self.validator)
+        
         # Set up routes
         self._setup_routes()
+        
+        # Set up playground routes
+        setup_playground_routes(self.app, self.playground_app)
+        
+        # Mount static files for playground
+        self.app.mount("/playground/static", StaticFiles(directory="playground/static"), name="playground_static")
         
     def _setup_routes(self) -> None:
         """Set up FastAPI routes."""

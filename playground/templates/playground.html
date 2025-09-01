@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/playground/static/css/playground.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <i data-lucide="activity" class="logo-icon"></i>
+                        <h1>PHCore FHIR Playground</h1>
+                    </div>
+                    <p class="subtitle">Interactive testing environment for Philippine Core Implementation Guide</p>
+                </div>
+                <div class="header-right">
+                    <a href="/playground/docs" class="docs-button">
+                        <i data-lucide="book-open"></i>
+                        <span>Documentation</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <div class="nav-container">
+            <nav class="nav-tabs">
+                <a href="/playground" class="nav-tab active">
+                    <i data-lucide="home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="/playground/validator" class="nav-tab">
+                    <i data-lucide="check-circle"></i>
+                    <span>Validator</span>
+                </a>
+                <a href="/playground/examples" class="nav-tab">
+                    <i data-lucide="file-text"></i>
+                    <span>Examples</span>
+                </a>
+                <a href="/playground/docs" class="nav-tab">
+                    <i data-lucide="book"></i>
+                    <span>Docs</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Quick Start Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>
+                        <i data-lucide="zap"></i>
+                        Quick Start
+                    </h2>
+                    <p>Get started with PHCore FHIR validation using these common examples</p>
+                </div>
+                
+                <div class="quick-start-grid">
+                    {% for example in quick_examples %}
+                    <div class="quick-start-card" onclick="window.location.href='/playground/validator'">
+                        <div class="card-icon">
+                            <i data-lucide="{% if example.resource_type == 'Patient' %}user{% elif example.resource_type == 'Encounter' %}calendar{% elif example.resource_type == 'Observation' %}activity{% else %}file{% endif %}"></i>
+                        </div>
+                        <h3>{{ example.title }}</h3>
+                        <p>{{ example.description }}</p>
+                        <div class="card-footer">
+                            <span class="badge">{{ example.resource_type }}</span>
+                            <i data-lucide="arrow-right" class="arrow-icon"></i>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- Validator Call-to-Action -->
+            <section class="section">
+                <div class="validator-cta">
+                    <div class="cta-content">
+                        <div class="cta-icon">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                        <div class="cta-text">
+                            <h2>Start Validating FHIR Resources</h2>
+                            <p>Use our dedicated validator with a full-screen 2-column layout for the best validation experience</p>
+                        </div>
+                        <div class="cta-action">
+                            <a href="/playground/validator" class="btn btn-primary btn-large">
+                                <i data-lucide="arrow-right"></i>
+                                Open Validator
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Documentation Links -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>
+                        <i data-lucide="book-open"></i>
+                        Documentation & Resources
+                    </h2>
+                    <p>Explore PHCore profiles, implementation guides, and API documentation</p>
+                </div>
+
+                <div class="docs-grid">
+                    {% for link in documentation_links %}
+                    <a href="{{ link.url }}" class="doc-card" target="_blank">
+                        <div class="doc-icon">
+                            <i data-lucide="{% if 'API' in link.title %}code{% elif 'Guide' in link.title %}map{% elif 'Profiles' in link.title %}layers{% else %}file-text{% endif %}"></i>
+                        </div>
+                        <h3>{{ link.title }}</h3>
+                        <p>{{ link.description }}</p>
+                        <div class="doc-footer">
+                            <i data-lucide="external-link"></i>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- Available Profiles -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>
+                        <i data-lucide="layers"></i>
+                        Available PHCore Profiles
+                    </h2>
+                    <p>Philippine Core StructureDefinition profiles for validation</p>
+                </div>
+
+                <div class="profiles-container">
+                    {% for profile in available_profiles %}
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <h3>{{ profile.name or profile.title }}</h3>
+                            <span class="profile-version">{{ profile.version or 'Latest' }}</span>
+                        </div>
+                        <p class="profile-description">{{ profile.description or 'No description available' }}</p>
+                        <div class="profile-footer">
+                            <span class="profile-url">{{ profile.url }}</span>
+                            <a href="{{ profile.url }}" target="_blank" class="btn btn-small">
+                                <i data-lucide="external-link"></i>
+                                View Profile
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 PHCore FHIR Playground. Built for Philippine healthcare interoperability.</p>
+                <div class="footer-links">
+                    <a href="/ph-core/fhir/metadata">Server Info</a>
+                    <a href="/docs">API Docs</a>
+                    <a href="https://www.hl7.org/fhir/">FHIR R4</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <i data-lucide="loader" class="spin"></i>
+            <p>Validating resource...</p>
+        </div>
+    </div>
+
+    <script src="/playground/static/js/playground.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

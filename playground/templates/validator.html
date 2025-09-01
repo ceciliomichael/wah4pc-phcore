@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/playground/static/css/playground.css">
+    <link rel="stylesheet" href="/playground/static/css/validator.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <div class="validator-layout">
+        <!-- Header -->
+        <header class="validator-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <i data-lucide="check-circle" class="logo-icon"></i>
+                        <h1>PHCore FHIR Validator</h1>
+                    </div>
+                    <p class="subtitle">Real-time validation against Philippine Core Implementation Guide</p>
+                </div>
+                <div class="header-right">
+                    <a href="/playground" class="docs-button">
+                        <i data-lucide="home"></i>
+                        <span>Back to Playground</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <div class="nav-container">
+            <nav class="nav-tabs">
+            <a href="/playground" class="nav-tab">
+                <i data-lucide="home"></i>
+                <span>Home</span>
+            </a>
+            <a href="/playground/validator" class="nav-tab active">
+                <i data-lucide="check-circle"></i>
+                <span>Validator</span>
+            </a>
+            <a href="/playground/examples" class="nav-tab">
+                <i data-lucide="file-text"></i>
+                <span>Examples</span>
+            </a>
+            <a href="/playground/docs" class="nav-tab">
+                <i data-lucide="book"></i>
+                <span>Docs</span>
+            </a>
+        </nav>
+        </div>
+
+        <!-- Main Validator Content -->
+        <main class="validator-main">
+            <!-- Left Column - Input -->
+            <div class="validator-input-column">
+                <div class="input-header">
+                    <h2>
+                        <i data-lucide="edit"></i>
+                        Resource Input
+                    </h2>
+                    <div class="input-controls">
+                        <label class="toggle-label">
+                            <span class="toggle-text">Verbose validation</span>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="verboseMode" checked>
+                                <span class="toggle-slider"></span>
+                            </div>
+                        </label>
+                        <div class="button-group">
+                            <button type="button" class="btn btn-secondary" onclick="clearEditor()">
+                                <i data-lucide="trash-2"></i>
+                                Clear
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="validateResource()">
+                                <i data-lucide="play"></i>
+                                Validate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="editor-container">
+                    <textarea id="resourceEditor" class="resource-editor" placeholder='Paste your FHIR resource JSON here, e.g.:
+{
+  "resourceType": "Patient",
+  "id": "example-patient",
+  "name": [
+    {
+      "family": "Dela Cruz",
+      "given": ["Juan", "Pablo"]
+    }
+  ],
+  "gender": "male"
+}'></textarea>
+                </div>
+
+                <!-- Quick Examples -->
+                <div class="quick-examples">
+                    <h3>Quick Start Examples</h3>
+                    <div class="examples-grid">
+                        {% for example in quick_examples %}
+                        <button class="example-button" 
+                                data-resource-type="{{ example.resource_type }}" 
+                                data-resource-data='{{ example.data | tojson | safe }}'
+                                onclick="loadQuickExampleFromData(this)">
+                            <div class="example-icon">
+                                <i data-lucide="{% if example.resource_type == 'Patient' %}user{% elif example.resource_type == 'Encounter' %}calendar{% elif example.resource_type == 'Observation' %}activity{% else %}file{% endif %}"></i>
+                            </div>
+                            <div class="example-content">
+                                <span class="example-title">{{ example.resource_type }}</span>
+                                <span class="example-description">{{ example.description }}</span>
+                            </div>
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Results -->
+            <div class="validator-results-column">
+                <div class="results-header">
+                    <h2>
+                        <i data-lucide="clipboard-check"></i>
+                        Validation Results
+                    </h2>
+                    <div class="results-summary" id="resultsSummary"></div>
+                </div>
+
+                <div class="results-content-container" id="resultsContainer">
+                    <div class="results-placeholder">
+                        <div class="placeholder-icon">
+                            <i data-lucide="arrow-left"></i>
+                        </div>
+                        <h3>Ready to Validate</h3>
+                        <p>Paste a FHIR resource in the editor or click a quick example to get started.</p>
+                        <div class="placeholder-shortcuts">
+                            <h4>Keyboard Shortcuts:</h4>
+                            <ul>
+                                <li><kbd>Ctrl+Enter</kbd> - Validate resource</li>
+                                <li><kbd>Ctrl+K</kbd> - Clear editor</li>
+                                <li><kbd>Escape</kbd> - Hide results</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="validation-results" id="validationResults" style="display: none;">
+                        <div class="results-content" id="resultsContent"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <i data-lucide="loader" class="spin"></i>
+            <p>Validating resource...</p>
+        </div>
+    </div>
+
+    <script src="/playground/static/js/playground.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Function to load example from data attributes
+        function loadQuickExampleFromData(button) {
+            try {
+                const resourceType = button.dataset.resourceType;
+                const resourceData = JSON.parse(button.dataset.resourceData);
+                console.log('Loading example:', resourceType, resourceData);
+                
+                // Check if loadQuickExample function exists
+                if (typeof loadQuickExample === 'function') {
+                    loadQuickExample(resourceType, resourceData);
+                } else {
+                    // Fallback: directly load into editor
+                    loadExampleDirectly(resourceType, resourceData);
+                }
+            } catch (error) {
+                console.error('Failed to load quick example:', error);
+                showNotification('Failed to load example', 'error');
+            }
+        }
+        
+        // Fallback function to load example directly
+        function loadExampleDirectly(resourceType, resourceData) {
+            const editor = document.getElementById('resourceEditor');
+            if (!editor) {
+                console.error('Resource editor not found');
+                return;
+            }
+            
+            // Pretty print JSON
+            const formattedJson = JSON.stringify(resourceData, null, 2);
+            editor.value = formattedJson;
+            
+            // Trigger auto-resize
+            editor.style.height = 'auto';
+            editor.style.height = Math.max(300, editor.scrollHeight) + 'px';
+            
+            // Hide any existing results
+            hideValidationResults();
+            
+            // Show success notification
+            console.log(`Loaded ${resourceType} example`);
+        }
+        
+        // Simple notification function if not available from playground.js
+        function showNotification(message, type) {
+            if (window.PlaygroundAPI && window.PlaygroundAPI.showNotification) {
+                window.PlaygroundAPI.showNotification(message, type);
+            } else {
+                console.log(`${type.toUpperCase()}: ${message}`);
+            }
+        }
+        
+        // Check for example from sessionStorage (from examples page)
+        function checkForStoredExample() {
+            const storedExample = sessionStorage.getItem('playgroundExample');
+            if (storedExample) {
+                try {
+                    const exampleData = JSON.parse(storedExample);
+                    loadQuickExample(exampleData.filename, exampleData.data);
+                    sessionStorage.removeItem('playgroundExample');
+                } catch (error) {
+                    console.error('Failed to load stored example:', error);
+                }
+            }
+        }
+        
+        // Load stored example on page load
+        checkForStoredExample();
+        
+        // Override results display for 2-column layout
+        function showValidationResults(result) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            const summaryContainer = document.getElementById('resultsSummary');
+            const contentContainer = document.getElementById('resultsContent');
+            const validationResults = document.getElementById('validationResults');
+            const placeholder = document.querySelector('.results-placeholder');
+            
+            if (!resultsContainer || !summaryContainer || !contentContainer) {
+                console.error('Validation results containers not found');
+                return;
+            }
+            
+            // Hide placeholder
+            if (placeholder) {
+                placeholder.style.display = 'none';
+            }
+            
+            // Clear previous content
+            summaryContainer.innerHTML = '';
+            contentContainer.innerHTML = '';
+            
+            // Create summary
+            const summaryHtml = createResultsSummary(result);
+            summaryContainer.innerHTML = summaryHtml;
+            
+            // Create issues list
+            const issuesHtml = createIssuesList(result.issues || []);
+            contentContainer.innerHTML = issuesHtml;
+            
+            // Show results
+            validationResults.style.display = 'block';
+            
+            // Re-initialize icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+        
+        // Override hide results for 2-column layout
+        function hideValidationResults() {
+            const validationResults = document.getElementById('validationResults');
+            const placeholder = document.querySelector('.results-placeholder');
+            
+            if (validationResults) {
+                validationResults.style.display = 'none';
+            }
+            
+            if (placeholder) {
+                placeholder.style.display = 'flex';
+            }
+        }
+    </script>
+</body>
+</html>

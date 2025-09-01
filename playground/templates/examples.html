@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/playground/static/css/playground.css">
+    <link rel="stylesheet" href="/playground/static/css/examples.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <i data-lucide="file-text" class="logo-icon"></i>
+                        <h1>PHCore FHIR Examples</h1>
+                    </div>
+                    <p class="subtitle">Browse and explore valid and invalid FHIR resource examples</p>
+                </div>
+                <div class="header-right">
+                    <a href="/playground/validator" class="docs-button">
+                        <i data-lucide="check-circle"></i>
+                        <span>Open Validator</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <div class="nav-container">
+            <nav class="nav-tabs">
+                <a href="/playground" class="nav-tab">
+                    <i data-lucide="home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="/playground/validator" class="nav-tab">
+                    <i data-lucide="check-circle"></i>
+                    <span>Validator</span>
+                </a>
+                <a href="/playground/examples" class="nav-tab active">
+                    <i data-lucide="file-text"></i>
+                    <span>Examples</span>
+                </a>
+                <a href="/playground/docs" class="nav-tab">
+                    <i data-lucide="book"></i>
+                    <span>Docs</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Examples Filter Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>
+                        <i data-lucide="filter"></i>
+                        Filter Examples
+                    </h2>
+                    <p>Choose the type of examples you want to explore</p>
+                </div>
+
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <label class="filter-label">Validity:</label>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all" onclick="filterExamples('all')">
+                                <i data-lucide="list"></i>
+                                All Examples
+                            </button>
+                            <button class="filter-btn" data-filter="valid" onclick="filterExamples('valid')">
+                                <i data-lucide="check-circle"></i>
+                                Valid Only
+                            </button>
+                            <button class="filter-btn" data-filter="invalid" onclick="filterExamples('invalid')">
+                                <i data-lucide="x-circle"></i>
+                                Invalid Only
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label">Resource Type:</label>
+                        <select class="resource-type-select" id="resourceTypeFilter" onchange="filterByResourceType()">
+                            <option value="all">All Resource Types</option>
+                            {% for resource_type in valid_examples.keys() | list + invalid_examples.keys() | list | unique | sort %}
+                            <option value="{{ resource_type }}">{{ resource_type.title() }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Valid Examples Section -->
+            <section class="section examples-section" id="validSection">
+                <div class="section-header">
+                    <h2>
+                        <i data-lucide="check-circle"></i>
+                        Valid Examples
+                    </h2>
+                    <p>Examples that pass PHCore validation requirements</p>
+                </div>
+
+                {% for resource_type, examples in valid_examples.items() %}
+                <div class="resource-type-group" data-resource-type="{{ resource_type }}" data-validity="valid">
+                    <div class="resource-type-header">
+                        <h3>
+                            <i data-lucide="{% if resource_type == 'patient' %}user{% elif resource_type == 'encounter' %}calendar{% elif resource_type == 'observation' %}activity{% elif resource_type == 'medication' %}pill{% elif resource_type == 'organization' %}building{% elif resource_type == 'practitioner' %}user-check{% else %}file{% endif %}"></i>
+                            {{ resource_type.title() }} Examples
+                        </h3>
+                        <span class="example-count">{{ examples | length }} example{{ 's' if examples | length != 1 else '' }}</span>
+                    </div>
+
+                    <div class="examples-grid">
+                        {% for example in examples %}
+                        <div class="example-card valid" data-filename="{{ example.filename }}">
+                            <div class="example-header">
+                                <div class="example-icon">
+                                    <i data-lucide="{% if resource_type == 'patient' %}user{% elif resource_type == 'encounter' %}calendar{% elif resource_type == 'observation' %}activity{% elif resource_type == 'medication' %}pill{% elif resource_type == 'organization' %}building{% elif resource_type == 'practitioner' %}user-check{% else %}file{% endif %}"></i>
+                                </div>
+                                <div class="example-info">
+                                    <h4>{{ example.filename }}</h4>
+                                    <p>{{ example.description }}</p>
+                                </div>
+                                <div class="example-status valid">
+                                    <i data-lucide="check-circle"></i>
+                                    <span>Valid</span>
+                                </div>
+                            </div>
+                            
+                            <div class="example-actions">
+                                <button class="btn btn-secondary btn-small" 
+                                        data-filename="{{ example.filename }}" 
+                                        data-example-data='{{ example.data | tojson | safe }}'
+                                        onclick="viewExampleFromButton(this)">
+                                    <i data-lucide="eye"></i>
+                                    View
+                                </button>
+                                <button class="btn btn-primary btn-small" 
+                                        data-filename="{{ example.filename }}" 
+                                        data-example-data='{{ example.data | tojson | safe }}'
+                                        onclick="validateExampleFromButton(this)">
+                                    <i data-lucide="play"></i>
+                                    Validate
+                                </button>
+                                <button class="btn btn-secondary btn-small" 
+                                        data-example-data='{{ example.data | tojson | safe }}'
+                                        onclick="copyExampleFromButton(this)">
+                                    <i data-lucide="copy"></i>
+                                    Copy
+                                </button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </section>
+
+            <!-- Invalid Examples Section -->
+            <section class="section examples-section" id="invalidSection">
+                <div class="section-header">
+                    <h2>
+                        <i data-lucide="x-circle"></i>
+                        Invalid Examples
+                    </h2>
+                    <p>Examples that fail PHCore validation (useful for testing error handling)</p>
+                </div>
+
+                {% for resource_type, examples in invalid_examples.items() %}
+                <div class="resource-type-group" data-resource-type="{{ resource_type }}" data-validity="invalid">
+                    <div class="resource-type-header">
+                        <h3>
+                            <i data-lucide="{% if resource_type == 'patient' %}user{% elif resource_type == 'encounter' %}calendar{% elif resource_type == 'observation' %}activity{% elif resource_type == 'medication' %}pill{% elif resource_type == 'organization' %}building{% elif resource_type == 'practitioner' %}user-check{% else %}file{% endif %}"></i>
+                            {{ resource_type.title() }} Examples
+                        </h3>
+                        <span class="example-count">{{ examples | length }} example{{ 's' if examples | length != 1 else '' }}</span>
+                    </div>
+
+                    <div class="examples-grid">
+                        {% for example in examples %}
+                        <div class="example-card invalid" data-filename="{{ example.filename }}">
+                            <div class="example-header">
+                                <div class="example-icon">
+                                    <i data-lucide="{% if resource_type == 'patient' %}user{% elif resource_type == 'encounter' %}calendar{% elif resource_type == 'observation' %}activity{% elif resource_type == 'medication' %}pill{% elif resource_type == 'organization' %}building{% elif resource_type == 'practitioner' %}user-check{% else %}file{% endif %}"></i>
+                                </div>
+                                <div class="example-info">
+                                    <h4>{{ example.filename }}</h4>
+                                    <p>{{ example.description }}</p>
+                                </div>
+                                <div class="example-status invalid">
+                                    <i data-lucide="x-circle"></i>
+                                    <span>Invalid</span>
+                                </div>
+                            </div>
+                            
+                            <div class="example-actions">
+                                <button class="btn btn-secondary btn-small" 
+                                        data-filename="{{ example.filename }}" 
+                                        data-example-data='{{ example.data | tojson | safe }}'
+                                        onclick="viewExampleFromButton(this)">
+                                    <i data-lucide="eye"></i>
+                                    View
+                                </button>
+                                <button class="btn btn-primary btn-small" 
+                                        data-filename="{{ example.filename }}" 
+                                        data-example-data='{{ example.data | tojson | safe }}'
+                                        onclick="validateExampleFromButton(this)">
+                                    <i data-lucide="play"></i>
+                                    Validate
+                                </button>
+                                <button class="btn btn-secondary btn-small" 
+                                        data-example-data='{{ example.data | tojson | safe }}'
+                                        onclick="copyExampleFromButton(this)">
+                                    <i data-lucide="copy"></i>
+                                    Copy
+                                </button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 PHCore FHIR Playground. Built for Philippine healthcare interoperability.</p>
+                <div class="footer-links">
+                    <a href="/ph-core/fhir/metadata">Server Info</a>
+                    <a href="/docs">API Docs</a>
+                    <a href="https://www.hl7.org/fhir/">FHIR R4</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Example Viewer Modal -->
+    <div id="exampleModal" class="modal" style="display: none;">
+        <div class="modal-overlay" onclick="closeExampleModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Example Resource</h3>
+                <button class="modal-close" onclick="closeExampleModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="json-viewer-header">
+                    <i data-lucide="code"></i>
+                    <span>FHIR Resource JSON</span>
+                </div>
+                <pre id="modalContent" class="example-json"></pre>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-footer-info">
+                    <i data-lucide="info"></i>
+                    <span>Click "Validate" to test this resource in the playground</span>
+                </div>
+                <div class="modal-footer-actions">
+                    <button class="btn btn-secondary" onclick="closeExampleModal()">
+                        <i data-lucide="x"></i>
+                        Close
+                    </button>
+                    <button class="btn btn-primary" onclick="validateFromModal()">
+                        <i data-lucide="check-circle"></i>
+                        Validate in Playground
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/playground/static/js/playground.js"></script>
+    <script src="/playground/static/js/examples.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
