@@ -304,9 +304,14 @@ function createIssuesList(issues) {
     if (!issues || issues.length === 0) {
         return `
             <div class="issue-item info">
-                <div class="issue-severity info">Success</div>
+                <div class="issue-header">
+                    <div class="issue-severity info">
+                        <i data-lucide="check-circle"></i>
+                        Success
+                    </div>
+                    <div class="issue-title">Validation Successful</div>
+                </div>
                 <div class="issue-details">
-                    <i data-lucide="check-circle"></i>
                     Resource validation completed successfully. No issues found.
                 </div>
             </div>
@@ -315,16 +320,22 @@ function createIssuesList(issues) {
     
     return issues.map(issue => {
         const severityIcon = getSeverityIcon(issue.severity);
+        const severityLabel = issue.severity.charAt(0).toUpperCase() + issue.severity.slice(1);
         return `
             <div class="issue-item ${issue.severity_class}">
-                <div class="issue-severity ${issue.severity_class}">
-                    <i data-lucide="${severityIcon}"></i>
-                    ${issue.severity}
+                <div class="issue-header">
+                    <div class="issue-severity ${issue.severity_class}">
+                        <i data-lucide="${severityIcon}"></i>
+                        ${severityLabel}
+                    </div>
+                    <div class="issue-title">Validation Issue</div>
                 </div>
-                <div class="issue-details">${escapeHtml(issue.details)}</div>
-                <div class="issue-location">
-                    <i data-lucide="map-pin"></i>
-                    Location: ${escapeHtml(issue.location)}
+                <div class="issue-details">
+                    ${escapeHtml(issue.details)}
+                    <div class="issue-location">
+                        <i data-lucide="map-pin"></i>
+                        Location: ${escapeHtml(issue.location)}
+                    </div>
                 </div>
             </div>
         `;

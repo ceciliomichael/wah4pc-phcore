@@ -541,25 +541,33 @@ body {
 }
 
 .issue-item {
-    padding: 1rem;
+    background: oklch(100% 0 0);
+    border: 1px solid oklch(90% 0.01 210);
     border-radius: 8px;
     margin-bottom: 1rem;
-    border-left: 4px solid;
+    overflow: hidden;
+    box-shadow: 0 2px 4px oklch(0% 0 0 / 0.05);
 }
 
 .issue-item.error {
-    background: oklch(97% 0.02 15);
-    border-left-color: oklch(65% 0.15 15);
+    border-left: 4px solid oklch(65% 0.15 15);
 }
 
 .issue-item.warning {
-    background: oklch(97% 0.02 60);
-    border-left-color: oklch(70% 0.15 60);
+    border-left: 4px solid oklch(70% 0.15 60);
 }
 
 .issue-item.info {
-    background: oklch(97% 0.02 220);
-    border-left-color: oklch(65% 0.15 220);
+    border-left: 4px solid oklch(65% 0.15 220);
+}
+
+.issue-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: oklch(98% 0.01 210);
+    border-bottom: 1px solid oklch(90% 0.01 210);
 }
 
 .issue-severity {
@@ -569,42 +577,62 @@ body {
     font-weight: 600;
     text-transform: uppercase;
     font-size: 0.75rem;
-    margin-bottom: 0.25rem;
     line-height: 1;
+    padding: 0.5rem 0.75rem;
+    border-radius: 12px;
+    flex-shrink: 0;
+    height: 1.5rem;
+    min-height: 1.5rem;
 }
 
 .issue-severity i,
 .issue-severity svg {
-    width: 1rem;
-    height: 1rem;
+    width: 0.875rem;
+    height: 0.875rem;
     flex-shrink: 0;
+    display: block;
 }
 
 .issue-severity.error {
-    color: oklch(55% 0.15 15);
+    background: oklch(92% 0.1 15);
+    color: oklch(40% 0.15 15);
 }
 
 .issue-severity.warning {
-    color: oklch(60% 0.15 60);
+    background: oklch(92% 0.1 60);
+    color: oklch(35% 0.15 60);
 }
 
 .issue-severity.info {
-    color: oklch(65% 0.15 220);
+    background: oklch(92% 0.1 130);
+    color: oklch(30% 0.15 130);
+}
+
+.issue-title {
+    font-weight: 600;
+    color: oklch(25% 0.01 210);
+    font-size: 0.875rem;
+    flex: 1;
 }
 
 .issue-details {
-    margin-bottom: 0.5rem;
+    padding: 1rem;
     line-height: 1.5;
+    color: oklch(40% 0.01 210);
 }
 
 .issue-location {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: oklch(50% 0.01 210);
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    line-height: 1;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background: oklch(95% 0.01 210);
+    border-radius: 4px;
+    width: fit-content;
 }
 
 .issue-location i,
